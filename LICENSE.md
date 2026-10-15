@@ -7,7 +7,7 @@ Menumancer распространяется бесплатно. Исходный
 **Можно:**
 
 - скачивать программу со страницы https://github.com/Laraden/menumancer/releases и пользоваться ею бесплатно, в том числе на стримах и в роликах;
-- делиться ссылкой на эту страницу и фонами, сделанными в программе (ZIP для друзей).
+- делиться ссылкой на эту страницу и рецептами фонов, сделанных в программе.
 
 **Нельзя без письменного разрешения автора:**
 
@@ -15,6 +15,8 @@ Menumancer распространяется бесплатно. Исходный
 - выкладывать программу или её изменённые версии под другим именем или от своего имени;
 - декомпилировать, изменять программу и использовать её код или части в своих продуктах, кроме случаев, когда это прямо разрешено законом;
 - убирать или менять упоминания автора, эту лицензию и уведомления о сторонних компонентах.
+
+Программа не даёт никаких прав на чужие видео, обои и музыку. Пользователь сам отвечает за то, что берёт в программу и передаёт другим: само видео и музыку можно передавать, только если они ваши, под свободной лицензией или автор разрешил.
 
 Программа предоставляется «как есть», без каких-либо гарантий. Автор не отвечает за последствия её использования, в том числе за блокировки в играх. Пользуясь программой, вы соглашаетесь с этими условиями.
 
@@ -28,7 +30,7 @@ Menumancer не связана с Valve Corporation и не одобрена е�
 
 Copyright © 2026 Laraden. All rights reserved.
 
-Menumancer is free to download and use (including on streams and in videos) from https://github.com/Laraden/menumancer/releases. You may share that link and backgrounds made with the app.
+Menumancer is free to download and use (including on streams and in videos) from https://github.com/Laraden/menumancer/releases. You may share that link and recipes of backgrounds made with the app. The app grants no rights to other people's videos, wallpapers or music: you are responsible for what you use and pass on, and may pass on the video or music itself only if it is yours, under a free license or the author allowed it.
 
 Without the author's written permission you may not: sell the app or charge for access to it; publish the app or modified versions of it under another name or as your own; decompile or modify the app or reuse its code in your own products, except where the law expressly allows it; remove or change the author credits, this license or third-party notices.
 

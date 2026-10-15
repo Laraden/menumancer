@@ -17,7 +17,7 @@
 - Ставит вашу музыку в меню, на заставку, выбор героя, победу и поражение: один трек, случайный трек или микс из плейлиста.
 - Подходит для широких мониторов: 16:9, 21:9 и 32:9.
 - Ставит фон в игру одной кнопкой и так же одной кнопкой убирает.
-- Делает ZIP для друзей: друг ставит Menumancer, открывает ваш архив, и у него тот же фон.
+- Делится фоном с друзьями рецептом: в нём настройки без видео, а видео друг берёт из источника сам (подписывается на те же обои в Workshop или скачивает по ссылке), и Menumancer собирает у него тот же фон. Своё видео или видео под свободной лицензией можно отправить и ZIP-архивом.
 
 
 ## Как начать
@@ -36,6 +36,12 @@
 - Dota 2 в Steam.
 - FFmpeg (программа поставит его сама или найдёт уже установленный).
 - Wallpaper Engine по желанию, если хотите брать видео-обои оттуда.
+
+## Чужие видео и обои
+
+- Видео, обои и музыка принадлежат их авторам. Menumancer не содержит и не раздаёт чужие видео: он делает фон на вашем компьютере из того, что у вас уже есть, и для себя так можно.
+- Передавать другим само видео можно, только если оно ваше, под свободной лицензией или автор разрешил. В остальных случаях делитесь рецептом: друг возьмёт видео из источника сам.
+- Обои из Steam Workshop всегда передаются только рецептом. Menumancer не связан с Wallpaper Engine.
 
 ## Безопасно ли это
 
@@ -57,6 +63,8 @@
 
 Чтобы удалить программу полностью: «Убрать мод из Доты» в Настройках, потом удалите exe и эти три папки.
 
+**Портативный режим.** Создайте рядом с exe пустую папку `Menumancer-data`: программа будет хранить в ней всё (настройки, фоны, журналы) и ничего не писать в Документы и AppData. Так её можно носить на флешке вместе с фонами.
+
 ## Нашли ошибку
 
 Откройте [issue](https://github.com/Laraden/menumancer/issues/new/choose) и опишите, что делали и что случилось. Очень помогает версия из «О программе» и журнал из `%LOCALAPPDATA%\Menumancer\logs`.
@@ -74,16 +82,20 @@
 - Any video (MP4, WebM, MKV, MOV) or a Wallpaper Engine video wallpaper becomes a seamless menu loop, previewed under a mock of the Dota menu.
 - Your own music for the menu, startup, hero pick, victory and defeat: one track, a random track or a mix from a playlist.
 - 16:9, 21:9 and 32:9 screens.
-- One click to install the background, one click to remove it. Share it with friends as a ZIP.
+- One click to install the background, one click to remove it. Share it with friends as a recipe: settings without the video, your friend gets the video from its source (Workshop subscription or a link) and the app builds the same background. Your own or freely licensed videos can also go as a ZIP.
 - The app is in Russian and English (Settings → App language).
 
 **Getting started.** Download `Menumancer-<version>-win-x64.exe` from [Releases](https://github.com/Laraden/menumancer/releases/latest) and run it, no installation needed. Windows SmartScreen may warn that the app is unrecognized (it has no paid publisher certificate yet): click "More info" → "Run anyway". The app offers to install FFmpeg through winget if it is missing. Close Dota before installing or removing a background.
 
 **Requirements.** Windows 10/11 64-bit, Dota 2 on Steam, FFmpeg. Wallpaper Engine is optional.
 
+**Other people's videos.** Videos, wallpapers and music belong to their authors. Menumancer contains and distributes none of them: it builds a background on your PC from what you already have, which is fine for your own use. Pass the video itself on only if it is yours, under a free license or the author allowed it; otherwise share a recipe. Workshop wallpapers are always shared as a recipe. Menumancer is not affiliated with Wallpaper Engine.
+
 **Is it safe?** Menumancer is an unofficial fan tool, not affiliated with or endorsed by Valve. It adds one cosmetic main-menu file to the game's language folder and never overwrites Valve files. It does not touch or read the game process, gives no gameplay advantage and never replaces content sold in game (an equipped music pack keeps playing). Modifying game files is not permitted by the [Steam Subscriber Agreement](https://store.steampowered.com/subscriber_agreement/) (section 2.G). We know of no bans for cosmetic changes like this, but nobody can guarantee it: **use at your own risk.** If a Dota update breaks the menu or blocks matchmaking ("Locally modified game files detected"), press "Remove from Dota" on the background card or "Remove mod from Dota" in Settings, and if needed use "Verify integrity of game files" in Steam.
 
 **Updates** are checked once a day and installed only when you click "Update". Every update is signed, and the app checks the signature and checksum before replacing anything.
+
+**Portable mode:** create an empty `Menumancer-data` folder next to the exe and the app keeps everything there (settings, backgrounds, logs) instead of Documents and AppData, so you can carry it on a USB stick.
 
 **Bugs:** open an [issue](https://github.com/Laraden/menumancer/issues/new/choose) with the version from "About" and the log from `%LOCALAPPDATA%\Menumancer\logs`.
 
