@@ -1,0 +1,41 @@
+name: Ошибка / Bug report
+description: Что-то работает не так / Something does not work
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо, что пишете! Не выкладывайте сюда пароли, ключи и личные данные.
+        Thanks for reporting! Do not post passwords, keys or personal data here.
+  - type: input
+    id: version
+    attributes:
+      label: Версия Menumancer / Menumancer version
+      description: «О программе» / "About"
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows
+      placeholder: Windows 11 23H2
+  - type: textarea
+    id: what
+    attributes:
+      label: Что делали и что случилось / What you did and what happened
+      description: По шагам, если можно / Step by step if possible
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Что ожидали / What you expected
+  - type: textarea
+    id: log
+    attributes:
+      label: Журнал / Log
+      description: |
+        Последний файл из %LOCALAPPDATA%\DotaBg\logs. Перетащите файл сюда или вставьте конец текста.
+        The latest file from %LOCALAPPDATA%\DotaBg\logs. Drag the file here or paste its last lines.
+      render: text
