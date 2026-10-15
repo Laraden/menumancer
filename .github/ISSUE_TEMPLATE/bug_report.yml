@@ -36,6 +36,6 @@ body:
     attributes:
       label: Журнал / Log
       description: |
-        Последний файл из %LOCALAPPDATA%\DotaBg\logs. Перетащите файл сюда или вставьте конец текста.
-        The latest file from %LOCALAPPDATA%\DotaBg\logs. Drag the file here or paste its last lines.
+        Последний файл из %LOCALAPPDATA%\Menumancer\logs. Перетащите файл сюда или вставьте конец текста.
+        The latest file from %LOCALAPPDATA%\Menumancer\logs. Drag the file here or paste its last lines.
       render: text

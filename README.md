@@ -51,14 +51,15 @@
 
 ## Где лежат файлы
 
-- Ваши фоны: `Документы\Dota BG`.
-- Настройки и журналы: `%LOCALAPPDATA%\DotaBg`.
+- Ваши фоны: `Документы\Menumancer`.
+- Настройки: `%APPDATA%\Menumancer`.
+- Журналы и временные файлы: `%LOCALAPPDATA%\Menumancer`.
 
-Чтобы удалить программу полностью: «Убрать мод из Доты» в Настройках, потом удалите exe и эти две папки.
+Чтобы удалить программу полностью: «Убрать мод из Доты» в Настройках, потом удалите exe и эти три папки.
 
 ## Нашли ошибку
 
-Откройте [issue](https://github.com/Laraden/menumancer/issues/new/choose) и опишите, что делали и что случилось. Очень помогает версия из «О программе» и журнал из `%LOCALAPPDATA%\DotaBg\logs`.
+Откройте [issue](https://github.com/Laraden/menumancer/issues/new/choose) и опишите, что делали и что случилось. Очень помогает версия из «О программе» и журнал из `%LOCALAPPDATA%\Menumancer\logs`.
 
 ## Поддержать
 
@@ -84,7 +85,7 @@
 
 **Updates** are checked once a day and installed only when you click "Update". Every update is signed, and the app checks the signature and checksum before replacing anything.
 
-**Bugs:** open an [issue](https://github.com/Laraden/menumancer/issues/new/choose) with the version from "About" and the log from `%LOCALAPPDATA%\DotaBg\logs`.
+**Bugs:** open an [issue](https://github.com/Laraden/menumancer/issues/new/choose) with the version from "About" and the log from `%LOCALAPPDATA%\Menumancer\logs`.
 
 **Support:** the app is free. You can support development on [DonationAlerts](https://www.donationalerts.com/r/dverse).
 
