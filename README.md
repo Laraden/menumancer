@@ -18,7 +18,7 @@
 - Ставит вашу музыку в меню, на заставку, выбор героя, победу и поражение: один трек, случайный трек или микс из плейлиста.
 - Подходит для широких мониторов: 16:9, 21:9 и 32:9.
 - Ставит фон в игру одной кнопкой и так же одной кнопкой убирает.
-- Делится фоном с друзьями рецептом: в нём настройки без видео, а видео друг берёт из источника сам (подписывается на те же обои в Workshop или скачивает по ссылке), и Menumancer собирает у него тот же фон. Своё видео или видео под свободной лицензией можно отправить и ZIP-архивом.
+- Делится фоном с друзьями пресетом: в нём настройки без видео, а видео друг берёт из источника сам (подписывается на те же обои в Workshop или скачивает по ссылке), и Menumancer собирает у него тот же фон. Своё видео или видео под свободной лицензией можно отправить и ZIP-архивом.
 
 ![Выбор цикла](docs/screenshots/create-loop.png)
 
@@ -30,7 +30,7 @@
 4. «Создать» → выберите видео → выберите цикл → музыку → «Собрать». Галочка «Сразу поставить в Доту» поставит фон сразу.
 5. Запустите Доту. Перед установкой и снятием фона Доту нужно закрыть.
 
-При первом запуске программа покажет короткий тур по экранам.
+При первом запуске программа покажет короткий тур по экранам. Гайды по каждому разделу: [docs/guide](docs/guide/ru/README.md), и в самой программе кнопкой «?» у заголовка раздела.
 
 ## Требования
 
@@ -42,8 +42,8 @@
 ## Чужие видео и обои
 
 - Видео, обои и музыка принадлежат их авторам. Menumancer не содержит и не раздаёт чужие видео: он делает фон на вашем компьютере из того, что у вас уже есть, и для себя так можно.
-- Передавать другим само видео можно, только если оно ваше, под свободной лицензией или автор разрешил. В остальных случаях делитесь рецептом: друг возьмёт видео из источника сам.
-- Обои из Steam Workshop всегда передаются только рецептом. Menumancer не связан с Wallpaper Engine.
+- Передавать другим само видео можно, только если оно ваше, под свободной лицензией или автор разрешил. В остальных случаях делитесь пресетом: друг возьмёт видео из источника сам.
+- Обои из Steam Workshop всегда передаются только пресетом. Menumancer не связан с Wallpaper Engine.
 
 ## Безопасно ли это
 
@@ -84,14 +84,14 @@
 - Any video (MP4, WebM, MKV, MOV) or a Wallpaper Engine video wallpaper becomes a seamless menu loop, previewed under a mock of the Dota menu.
 - Your own music for the menu, startup, hero pick, victory and defeat: one track, a random track or a mix from a playlist.
 - 16:9, 21:9 and 32:9 screens.
-- One click to install the background, one click to remove it. Share it with friends as a recipe: settings without the video, your friend gets the video from its source (Workshop subscription or a link) and the app builds the same background. Your own or freely licensed videos can also go as a ZIP.
+- One click to install the background, one click to remove it. Share it with friends as a preset: settings without the video, your friend gets the video from its source (Workshop subscription or a link) and the app builds the same background. Your own or freely licensed videos can also go as a ZIP.
 - The app is in Russian and English (Settings → App language).
 
 **Getting started.** Download `Menumancer-<version>-win-x64.exe` from [Releases](https://github.com/Laraden/menumancer/releases/latest) and run it, no installation needed. Windows SmartScreen may warn that the app is unrecognized (it has no paid publisher certificate yet): click "More info" → "Run anyway". The app offers to install FFmpeg through winget if it is missing. Close Dota before installing or removing a background.
 
 **Requirements.** Windows 10/11 64-bit, Dota 2 on Steam, FFmpeg. Wallpaper Engine is optional.
 
-**Other people's videos.** Videos, wallpapers and music belong to their authors. Menumancer contains and distributes none of them: it builds a background on your PC from what you already have, which is fine for your own use. Pass the video itself on only if it is yours, under a free license or the author allowed it; otherwise share a recipe. Workshop wallpapers are always shared as a recipe. Menumancer is not affiliated with Wallpaper Engine.
+**Other people's videos.** Videos, wallpapers and music belong to their authors. Menumancer contains and distributes none of them: it builds a background on your PC from what you already have, which is fine for your own use. Pass the video itself on only if it is yours, under a free license or the author allowed it; otherwise share a preset. Workshop wallpapers are always shared as a preset. Menumancer is not affiliated with Wallpaper Engine.
 
 **Is it safe?** Menumancer is an unofficial fan tool, not affiliated with or endorsed by Valve. It adds one cosmetic main-menu file to the game's language folder and never overwrites Valve files. It does not touch or read the game process, gives no gameplay advantage and never replaces content sold in game (an equipped music pack keeps playing). Modifying game files is not permitted by the [Steam Subscriber Agreement](https://store.steampowered.com/subscriber_agreement/) (section 2.G). We know of no bans for cosmetic changes like this, but nobody can guarantee it: **use at your own risk.** If a Dota update breaks the menu or blocks matchmaking ("Locally modified game files detected"), press "Remove from Dota" on the background card or "Remove mod from Dota" in Settings, and if needed use "Verify integrity of game files" in Steam.
 
