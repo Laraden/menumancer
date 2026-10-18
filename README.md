@@ -14,6 +14,7 @@
 ## Что делает
 
 - Берёт любое видео (MP4, WebM, MKV, MOV) или видео-обои из Wallpaper Engine и делает из него фон главного меню.
+- Рисует живые фоны своим движком сцен (бета): шаблоны программы (северное сияние, космос, угли), ваша картинка с объёмом или сцена из Wallpaper Engine. В редакторе слои, эффекты и 3D, а в Доту уходит обычное видео с циклом без шва.
 - Сама находит отрезок, который красиво зацикливается, и показывает макет меню Доты поверх видео, чтобы было видно, что закроют кнопки.
 - Ставит вашу музыку в меню, на заставку, выбор героя, победу и поражение: один трек, случайный трек или микс из плейлиста.
 - Подходит для широких мониторов: 16:9, 21:9 и 32:9.
@@ -37,7 +38,7 @@
 - Windows 10 или 11, 64 бит.
 - Dota 2 в Steam.
 - FFmpeg (программа поставит его сама или найдёт уже установленный).
-- Wallpaper Engine по желанию, если хотите брать видео-обои оттуда.
+- Wallpaper Engine по желанию, если хотите брать видео-обои и сцены оттуда.
 
 ## Чужие видео и обои
 
@@ -82,10 +83,11 @@
 **Menumancer** puts your own animated video background and music into the Dota 2 main menu.
 
 - Any video (MP4, WebM, MKV, MOV) or a Wallpaper Engine video wallpaper becomes a seamless menu loop, previewed under a mock of the Dota menu.
+- Live backgrounds from the app's own scene engine (beta): built-in templates (northern lights, deep space, embers), your own picture with depth, or a Wallpaper Engine scene. The editor has layers, effects and 3D, and Dota gets an ordinary seamless video.
 - Your own music for the menu, startup, hero pick, victory and defeat: one track, a random track or a mix from a playlist.
 - 16:9, 21:9 and 32:9 screens.
 - One click to install the background, one click to remove it. Share it with friends as a preset: settings without the video, your friend gets the video from its source (Workshop subscription or a link) and the app builds the same background. Your own or freely licensed videos can also go as a ZIP.
-- The app is in Russian and English (Settings → App language).
+- The app is in Russian, English and Czech (Settings → App language).
 
 **Getting started.** Download `Menumancer-<version>-win-x64.exe` from [Releases](https://github.com/Laraden/menumancer/releases/latest) and run it, no installation needed. Windows SmartScreen may warn that the app is unrecognized (it has no paid publisher certificate yet): click "More info" → "Run anyway". The app offers to install FFmpeg through winget if it is missing. Close Dota before installing or removing a background.
 
