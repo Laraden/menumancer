@@ -1,0 +1,16 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "A picture with depth" },
+  "loop": { "seconds": 10, "fps": 30 },
+  "camera": { "drift": { "x": { "wave": "sine", "period": 10, "amp": 0.03 } } },
+  "layers": [
+    { "id": "valley", "type": "image", "asset": "assets/valley.png", "fit": "cover",
+      "depthMap": { "asset": "assets/valley.depth.png", "amount": 0.6, "focus": 0.5,
+        "zoom": { "wave": "sine", "period": 10, "amp": 0.02 } } }
+  ],
+  "assets": [
+    { "path": "assets/valley.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" },
+    { "path": "assets/valley.depth.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" }
+  ]
+}

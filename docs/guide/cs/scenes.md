@@ -18,7 +18,7 @@ Scény, které jste sestavili v editoru nebo převedli z Wallpaper Engine. V „
 
 ## 4. Scény Wallpaper Engine
 
-Scény z vašich odběrů ve Workshopu. Odznak říká, zda engine programu převezme scénu celou, částečně, nebo zatím ne; filtr „Podporované“ skryje ty poslední. Dlaždice převede scénu do „Moje scény“, soubory WE se jen čtou.
+Scény z vašich odběrů ve Workshopu. Odznak říká, zda engine programu převezme scénu celou, částečně, nebo zatím ne; filtr „Podporované“ skryje ty poslední. Dlaždice převede scénu do „Moje scény“ i s nastavením, které jste pro ni zvolili přímo ve WE; soubory WE se jen čtou. 3D scény program zatím nevykreslí a řekne to. Po aktualizaci programu dlaždice převede scénu znovu a dřívější kopie zůstane v „Moje scény“.
 
 ## 5. Náhled
 

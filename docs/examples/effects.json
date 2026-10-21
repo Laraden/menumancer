@@ -1,0 +1,25 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Layer and scene effects" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "layers": [
+    { "id": "valley", "type": "image", "asset": "assets/valley.png",
+      "effects": [
+        { "id": "wind", "effect": "sway", "mask": "assets/valley.mask.png", "params": { "strength": 0.004, "cycles": 3 } },
+        { "id": "grade", "effect": "colorGrade", "params": { "saturation": 1.2, "temperature": 0.1 } }
+      ] },
+    { "id": "sun", "type": "gradient", "kind": "radial", "blend": "add",
+      "transform": { "offset": [0.4, -0.25], "scale": 0.2 },
+      "effects": [ { "id": "bloom", "effect": "glow", "params": { "threshold": 0.5 } } ],
+      "stops": [ { "at": 0, "color": "#fff1c4" }, { "at": 1, "color": "#fff1c400" } ] }
+  ],
+  "effects": [
+    { "id": "mist", "effect": "fog", "params": { "density": 0.3, "height": 0.5 } },
+    { "id": "edges", "effect": "vignette", "params": { "amount": 0.5 } }
+  ],
+  "assets": [
+    { "path": "assets/valley.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" },
+    { "path": "assets/valley.mask.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" }
+  ]
+}

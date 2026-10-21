@@ -1,0 +1,13 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Sound bars" },
+  "loop": { "seconds": 10, "fps": 30 },
+  "live": { "audio": true },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#101428" },
+    { "id": "bars", "type": "audio", "shape": "bottom", "bars": 48, "width": 1.6, "height": 0.25, "color": "#7ae0ff",
+      "transform": { "offset": [0, 0.4] } },
+    { "id": "ring", "type": "audio", "shape": "circle", "bars": 64, "radius": 0.15, "height": 0.1, "mirror": true, "fadeAfter": 5 }
+  ]
+}

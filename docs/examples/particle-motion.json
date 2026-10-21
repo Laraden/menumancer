@@ -1,0 +1,30 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Particle forces, depth and children" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "camera": { "fov": 40 },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#0b0d1a" },
+    { "id": "sparks", "type": "particles", "blend": "add",
+      "system": {
+        "count": 30,
+        "spawn": { "kind": "point", "center": [0, 0.2] },
+        "life": { "min": 2, "max": 3 },
+        "speed": { "min": 0.05, "max": 0.1 },
+        "spread": 360,
+        "size": { "min": 0.004, "max": 0.008 },
+        "operators": [
+          { "type": "turbulence", "strength": 0.2, "scale": 0.15, "cycles": 2 },
+          { "type": "vortex", "center": [0, 0], "inner": 0.05, "outer": 0.4, "speedInner": 0.3, "speedOuter": 0.05 },
+          { "type": "attract", "point": "hand", "strength": 0.1, "radius": 0.5 },
+          { "type": "speedCap", "max": 0.4 }
+        ],
+        "controlPoints": [ { "id": "hand", "at": [0.3, -0.1], "cursor": true } ],
+        "depth": { "z": { "min": 0, "max": 2 }, "speedZ": { "min": -0.1, "max": 0.1 }, "perspective": true },
+        "children": [ { "on": "death", "layer": "ash", "count": 3 } ]
+      } },
+    { "id": "ash", "type": "particles",
+      "system": { "count": 20, "life": { "min": 1, "max": 2 }, "size": { "min": 0.002, "max": 0.004 } } }
+  ]
+}

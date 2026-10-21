@@ -1,0 +1,28 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Scene settings" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "layers": [
+    { "id": "sky", "type": "color", "color": "#1d2b53" },
+    { "id": "snow", "type": "particles", "preset": "snow", "params": { "count": 80 } },
+    { "id": "embers", "type": "particles", "preset": "embers", "visible": false },
+    { "id": "sun", "type": "gradient", "kind": "radial", "blend": "screen",
+      "transform": { "offset": [0.4, -0.25], "scale": 0.3 },
+      "stops": [ { "at": 0, "color": "#ffd166" }, { "at": 1, "color": "#ffd16600" } ] }
+  ],
+  "settings": [
+    { "id": "skyColor", "label": { "en": "Sky colour" }, "kind": "color", "value": "#1d2b53",
+      "drives": [ { "path": "sky.color" } ] },
+    { "id": "snowAmount", "label": { "en": "Snow" }, "kind": "number", "value": 80, "min": 0, "max": 200, "step": 10,
+      "drives": [ { "path": "snow.params.count" } ] },
+    { "id": "sun", "label": { "en": "Sun" }, "kind": "switch", "value": true,
+      "drives": [ { "path": "sun.visible" } ] },
+    { "id": "weather", "label": { "en": "Weather" }, "kind": "choice", "value": "snow",
+      "options": [
+        { "value": "snow", "label": { "en": "Snow" } },
+        { "value": "fire", "label": { "en": "Embers" } }
+      ],
+      "drives": [ { "path": "snow.visible", "when": "snow" }, { "path": "embers.visible", "when": "fire" } ] }
+  ]
+}

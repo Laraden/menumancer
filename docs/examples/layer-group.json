@@ -1,0 +1,18 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "A group with a canvas" },
+  "loop": { "seconds": 10, "fps": 30 },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#101820" },
+    { "id": "poster", "type": "group", "canvas": [1.7777, 1], "opacity": 0.9,
+      "effects": [ { "id": "soft", "effect": "blur", "params": { "radius": 0.004 } } ],
+      "layers": [
+        { "id": "poster-bg", "type": "gradient", "angle": 90,
+          "stops": [ { "at": 0, "color": "#203a43" }, { "at": 1, "color": "#2c5364" } ] },
+        { "id": "poster-dot", "type": "gradient", "kind": "radial", "blend": "add",
+          "transform": { "scale": 0.3, "offset": { "wave": "sine", "period": 5, "amp": [0.4, 0] } },
+          "stops": [ { "at": 0, "color": "#ffffff" }, { "at": 1, "color": "#ffffff00" } ] }
+      ] }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Text and a clock" },
+  "loop": { "seconds": 10, "fps": 30 },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#101428" },
+    { "id": "clock", "type": "text", "source": "time", "size": 0.12, "weight": 700, "transform": { "offset": [0, -0.1] } },
+    { "id": "date", "type": "text", "source": "date", "dateFormat": "dddd, d MMMM", "language": "en", "size": 0.05,
+      "color": "#c0c8ff", "transform": { "offset": [0, 0.02] } },
+    { "id": "caption", "type": "text", "text": "Good evening", "size": 0.04, "align": "left",
+      "transform": { "offset": [-0.85, 0.42] } }
+  ]
+}

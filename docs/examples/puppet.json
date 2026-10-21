@@ -1,0 +1,22 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "A puppet with a lantern" },
+  "loop": { "seconds": 10, "fps": 30, "story": 14 },
+  "layers": [
+    { "id": "night", "type": "color", "color": "#0b132b" },
+    { "id": "stalk", "type": "image", "asset": "assets/stalk.png", "size": [0.18, 0.72],
+      "puppet": { "asset": "assets/stalk.puppet.json", "animations": [
+        { "animation": 1, "rate": { "keys": [{ "t": 0, "v": 0 }, { "t": 4, "v": 1 }] }, "blendIn": 0.5 },
+        { "animation": 2, "additive": true, "blend": 0.6,
+          "visible": { "keys": [{ "t": 0, "v": 0, "ease": "hold" }, { "t": 2, "v": 1, "ease": "hold" }] }, "blendTime": 0.25 }
+      ] } },
+    { "id": "lantern", "type": "image", "asset": "assets/valley.png", "size": [0.08, 0.045],
+      "attach": { "layer": "stalk", "point": "tip" } }
+  ],
+  "assets": [
+    { "path": "assets/stalk.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" },
+    { "path": "assets/stalk.puppet.json", "source": "own", "license": "CC0-1.0", "author": "Menumancer" },
+    { "path": "assets/valley.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" }
+  ]
+}

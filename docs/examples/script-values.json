@@ -1,0 +1,21 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Script values" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "live": { "mouse": true },
+  "layers": [
+    { "id": "sky", "type": "color",
+      "color": { "scriptFile": "assets/daylight.js", "start": "#2b4a7a", "inputs": ["clock"] } },
+    { "id": "moon", "type": "gradient", "kind": "radial", "blend": "screen",
+      "opacity": { "script": "return 1 - sky.color[1];", "start": 0.8, "inputs": ["sky.color"] },
+      "transform": {
+        "offset": { "script": "return [value[0] + 0.05 * mouse.x, value[1]];", "start": [0.4, -0.25], "inputs": ["mouse"] },
+        "scale": 0.2
+      },
+      "stops": [ { "at": 0, "color": "#f4f1de" }, { "at": 1, "color": "#f4f1de00" } ] }
+  ],
+  "assets": [
+    { "path": "assets/daylight.js", "source": "own", "license": "CC0-1.0", "author": "Menumancer" }
+  ]
+}

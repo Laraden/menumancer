@@ -1,0 +1,13 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Built-in shaders" },
+  "loop": { "seconds": 20, "fps": 30 },
+  "layers": [
+    { "id": "night", "type": "color", "color": "#05060f" },
+    { "id": "stars", "type": "procedural", "shader": "stars", "blend": "add", "params": { "density": 0.3, "twinkle": 0.6 } },
+    { "id": "aurora", "type": "procedural", "shader": "aurora", "blend": "screen", "depth": 0.2 },
+    { "id": "ridge", "type": "procedural", "shader": "mountains", "depth": 0.5,
+      "params": { "color": "#070a14", "horizon": 0.35, "height": 0.3 } }
+  ]
+}

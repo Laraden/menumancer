@@ -1,0 +1,20 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Gradient layers" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "layers": [
+    { "id": "sky", "type": "gradient", "angle": 90,
+      "stops": [
+        { "at": 0, "color": "#0b1030" },
+        { "at": 0.6, "color": { "wave": "sine", "period": 12, "amp": "#100010", "base": "#3a1f5c" } },
+        { "at": 1, "color": "#f08a4b" }
+      ] },
+    { "id": "sun", "type": "gradient", "kind": "radial", "blend": "screen", "depth": 0.3,
+      "transform": { "offset": [0.35, 0.18], "scale": 0.35 },
+      "stops": [
+        { "at": 0, "color": "#fff1c4" },
+        { "at": 1, "color": "#ff7a3000" }
+      ] }
+  ]
+}

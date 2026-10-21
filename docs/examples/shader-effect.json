@@ -1,0 +1,20 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Scene shaders" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "layers": [
+    { "id": "valley", "type": "image", "asset": "assets/valley.png",
+      "material": { "file": "assets/shimmer.hlsl", "textures": ["$layer"] } },
+    { "id": "haze", "type": "color", "color": "#ffffff20", "blend": "screen",
+      "effects": [
+        { "id": "heat", "effect": "shader", "params": { "speed": 2 },
+          "shader": { "file": "assets/shimmer.hlsl", "textures": ["$under", "assets/valley.mask.png"], "fallback": "hide" } }
+      ] }
+  ],
+  "assets": [
+    { "path": "assets/valley.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" },
+    { "path": "assets/valley.mask.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" },
+    { "path": "assets/shimmer.hlsl", "source": "own", "license": "CC0-1.0", "author": "Menumancer" }
+  ]
+}

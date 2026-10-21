@@ -1,0 +1,23 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Four ways to animate a value" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "layers": [
+    { "id": "constant", "type": "color", "color": "#101820", "opacity": 1 },
+    { "id": "wave", "type": "gradient", "kind": "radial", "blend": "add",
+      "opacity": { "wave": "sine", "period": 4, "amp": 0.2, "base": 0.6, "phase": 0.25 },
+      "transform": { "offset": [-0.5, 0], "scale": 0.3 },
+      "stops": [ { "at": 0, "color": "#ffd166" }, { "at": 1, "color": "#ffd16600" } ] },
+    { "id": "keys", "type": "gradient", "kind": "radial", "blend": "add",
+      "transform": {
+        "offset": [0, 0],
+        "scale": { "keys": [ { "t": 0, "v": 0.2 }, { "t": 3, "v": 0.35, "ease": "easeOut" } ], "period": 6 } },
+      "stops": [ { "at": 0, "color": "#06d6a0" }, { "at": 1, "color": "#06d6a000" } ] },
+    { "id": "formula", "type": "gradient", "kind": "radial", "blend": "add",
+      "transform": {
+        "offset": { "expr": ["0.5 + 0.1 * sin(tau * p)", "0.15 * cos(tau * p)"], "period": 12 },
+        "scale": 0.3 },
+      "stops": [ { "at": 0, "color": { "expr": ["0.5 + 0.5 * sine(p)", "0.4", "1"], "period": 6 } }, { "at": 1, "color": "#118ab200" } ] }
+  ]
+}
