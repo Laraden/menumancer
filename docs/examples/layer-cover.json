@@ -1,0 +1,13 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Now playing" },
+  "loop": { "seconds": 10, "fps": 30 },
+  "live": { "audio": true },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#101428" },
+    { "id": "cover", "type": "cover", "size": 0.16, "rounding": 0.1, "transform": { "offset": [-0.6, 0.3] } },
+    { "id": "track", "type": "text", "source": "track", "track": "artistTitle", "size": 0.04, "align": "left",
+      "colorFromCover": true, "transform": { "offset": [-0.48, 0.3] } }
+  ]
+}

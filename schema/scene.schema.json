@@ -1,0 +1,4040 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Laraden/menumancer/main/schema/scene.schema.json",
+  "title": "Menumancer scene",
+  "description": "A Menumancer scene: layers drawn bottom to top over a seamless loop.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "The JSON Schema of this file, for editors. The engine ignores it.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "format": {
+      "description": "Always \"menumancer.scene\": marks the file as a scene.",
+      "const": "menumancer.scene"
+    },
+    "version": {
+      "description": "Format version. Older versions are upgraded on load; a newer one needs a newer Menumancer.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "title": {
+      "description": "Title in the scene gallery.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "loop": {
+      "description": "Loop length and frame rate: the last frame flows into the first.",
+      "$ref": "#/$defs/LoopSpec"
+    },
+    "seed": {
+      "description": "Seed of the scene's randomness: the same scene and seed always give the same frames.",
+      "type": "integer",
+      "default": 0
+    },
+    "camera": {
+      "description": "Camera: zoom, drift (parallax by layer depth), field of view for 3D models.",
+      "$ref": "#/$defs/SceneCamera"
+    },
+    "render": {
+      "description": "Frame quality: antialiasing, HDR, tonemapping, bloom, atmosphere, motion blur, depth of field.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RenderSettings"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "lighting": {
+      "description": "Scene lights for layers that are lit.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SceneLighting"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "live": {
+      "description": "What the scene reacts to as a live wallpaper (sound, mouse). No effect on the Dota video.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SceneLive"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "layers": {
+      "description": "Layers bottom to top: the first is drawn first.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Layer"
+      }
+    },
+    "effects": {
+      "description": "Effects on the finished frame over all layers (fog, colour grading, vignette), in order.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/EffectInstance"
+      }
+    },
+    "exposed": {
+      "description": "Params the user of the scene gets as sliders.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ExposedParam"
+      }
+    },
+    "settings": {
+      "description": "Settings the user of the scene picks (colours, numbers, switches, choices, text) and the values each drives.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SceneSetting"
+      }
+    },
+    "assets": {
+      "description": "Files of the scene with the source and licence of each.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SceneAsset"
+      }
+    }
+  },
+  "required": [
+    "format",
+    "version",
+    "loop",
+    "layers"
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "Atmosphere": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/colorValue",
+          "default": "#b3c7db"
+        },
+        "density": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0.5
+        },
+        "near": {
+          "type": "number",
+          "default": 1
+        },
+        "far": {
+          "type": "number",
+          "default": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "AudioLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "audio"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "shape": {
+          "enum": [
+            "bottom",
+            "top",
+            "center",
+            "circle",
+            "arc",
+            "line"
+          ],
+          "default": "bottom"
+        },
+        "bars": {
+          "type": "integer",
+          "default": 32
+        },
+        "width": {
+          "type": "number",
+          "default": 1
+        },
+        "height": {
+          "type": "number",
+          "default": 0.25
+        },
+        "radius": {
+          "type": "number",
+          "default": 0.2
+        },
+        "sweep": {
+          "type": "number",
+          "default": 180
+        },
+        "gap": {
+          "type": "number",
+          "default": 0.3
+        },
+        "minHeight": {
+          "type": "number",
+          "default": 0.02
+        },
+        "fromHz": {
+          "type": "number",
+          "default": 40
+        },
+        "toHz": {
+          "type": "number",
+          "default": 12000
+        },
+        "color": {
+          "$ref": "#/$defs/colorValue",
+          "default": "#ffffff"
+        },
+        "colorFromCover": {
+          "type": "boolean",
+          "default": false
+        },
+        "rounding": {
+          "type": "number",
+          "default": 0
+        },
+        "mirror": {
+          "type": "boolean",
+          "default": false
+        },
+        "thickness": {
+          "type": "number",
+          "default": 0.006
+        },
+        "fadeAfter": {
+          "type": "number",
+          "default": 0
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "BackdropLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "backdrop"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "size": {
+          "$ref": "#/$defs/vector"
+        },
+        "flipX": {
+          "type": "boolean",
+          "default": false
+        },
+        "flipY": {
+          "type": "boolean",
+          "default": false
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "size"
+      ],
+      "additionalProperties": true
+    },
+    "Bloom": {
+      "type": "object",
+      "properties": {
+        "strength": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0.4
+        },
+        "threshold": {
+          "type": "number",
+          "default": 1
+        },
+        "radius": {
+          "type": "number",
+          "default": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "CameraDrift": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "y": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "ColorLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "color"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "color": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "color"
+      ],
+      "additionalProperties": true
+    },
+    "CoverLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "cover"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "size": {
+          "type": "number",
+          "default": 0.2
+        },
+        "rounding": {
+          "type": "number",
+          "default": 0
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "DepthBackground": {
+      "type": "object",
+      "properties": {
+        "asset": {
+          "type": "string"
+        },
+        "depth": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset",
+        "depth"
+      ],
+      "additionalProperties": true
+    },
+    "DepthMap": {
+      "type": "object",
+      "properties": {
+        "asset": {
+          "type": "string"
+        },
+        "amount": {
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "focus": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0.5
+        },
+        "zoom": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "background": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DepthBackground"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "asset"
+      ],
+      "additionalProperties": true
+    },
+    "DepthOfField": {
+      "type": "object",
+      "properties": {
+        "focus": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0.5
+        },
+        "range": {
+          "type": "number",
+          "default": 0.2
+        },
+        "blur": {
+          "type": "number",
+          "default": 6
+        }
+      },
+      "additionalProperties": true
+    },
+    "EffectInstance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "effect": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "mask": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "textures": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "params": {
+          "type": "object"
+        },
+        "shader": {
+          "description": "The scene's own shader, for \"effect\": \"shader\".",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ShaderEffect"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "effect"
+      ],
+      "additionalProperties": true
+    },
+    "ExposedParam": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Slider name: Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "bind": {
+          "description": "What the slider changes: a value path such as \"fog.params.speed\", \"fog.opacity\" or \"camera.zoom\".",
+          "type": "string"
+        },
+        "min": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "step": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "bind"
+      ],
+      "additionalProperties": true
+    },
+    "GradientLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "gradient"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "linear",
+            "radial"
+          ],
+          "default": "linear"
+        },
+        "angle": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "stops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GradientStop"
+          }
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "stops"
+      ],
+      "additionalProperties": true
+    },
+    "GradientStop": {
+      "type": "object",
+      "properties": {
+        "at": {
+          "type": "number"
+        },
+        "color": {
+          "$ref": "#/$defs/colorValue"
+        }
+      },
+      "required": [
+        "at",
+        "color"
+      ],
+      "additionalProperties": true
+    },
+    "GroupLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "group"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "canvas": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        },
+        "layers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Layer"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "ImageLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "image"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "asset": {
+          "type": "string"
+        },
+        "fit": {
+          "enum": [
+            "cover",
+            "contain",
+            "stretch"
+          ],
+          "default": "cover"
+        },
+        "size": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "color": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "depthMap": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DepthMap"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warp": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MeshWarp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lit": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerLighting"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "puppet": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ImagePuppet"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "motion": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextureMotion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "material": {
+          "description": "The scene's own shader that draws this layer's pixels instead of the plain picture.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ShaderEffect"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "video": {
+          "description": "A video playing in the layer; the picture (asset) is its first frame and the fallback.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VideoTexture"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "asset"
+      ],
+      "additionalProperties": true
+    },
+    "ImagePuppet": {
+      "type": "object",
+      "properties": {
+        "asset": {
+          "type": "string"
+        },
+        "animations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PuppetAnimationLayer"
+          }
+        }
+      },
+      "required": [
+        "asset"
+      ],
+      "additionalProperties": true
+    },
+    "Layer": {
+      "description": "A layer: a plane at its own depth with its own effects; \"type\" picks the kind.",
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "The layer kind.",
+          "enum": [
+            "image",
+            "color",
+            "gradient",
+            "procedural",
+            "particles",
+            "group",
+            "model",
+            "audio",
+            "text",
+            "cover",
+            "backdrop"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "image"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/ImageLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "color"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/ColorLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "gradient"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/GradientLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "procedural"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/ProceduralLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "particles"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/ParticlesLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "group"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/GroupLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "model"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/ModelLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "audio"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/AudioLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "text"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/TextLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "cover"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/CoverLayer"
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "backdrop"
+              }
+            }
+          },
+          "then": {
+            "$ref": "#/$defs/BackdropLayer"
+          }
+        }
+      ],
+      "additionalProperties": true
+    },
+    "LayerAttach": {
+      "type": "object",
+      "properties": {
+        "layer": {
+          "description": "Id of the image layer with the puppet.",
+          "type": "string"
+        },
+        "point": {
+          "description": "Name of the attachment point in that layer's puppet file.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "layer",
+        "point"
+      ],
+      "additionalProperties": true
+    },
+    "LayerLighting": {
+      "type": "object",
+      "properties": {
+        "normalMap": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relief": {
+          "type": "number",
+          "default": 0.05
+        },
+        "shadows": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0.8
+        },
+        "specular": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "shininess": {
+          "type": "number",
+          "default": 24
+        }
+      },
+      "additionalProperties": true
+    },
+    "LayerMaterial": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "metallic": {
+          "$ref": "#/$defs/numberValue"
+        },
+        "roughness": {
+          "$ref": "#/$defs/numberValue"
+        },
+        "emissive": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "glow": {
+          "$ref": "#/$defs/numberValue"
+        }
+      },
+      "additionalProperties": true
+    },
+    "LayerTransform": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "$ref": "#/$defs/vectorValue",
+          "default": [
+            0,
+            0
+          ]
+        },
+        "scale": {
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "rotation": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "LocalizedText": {
+      "type": "object",
+      "properties": {
+        "ru": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null
+        },
+        "en": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null
+        },
+        "cs": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null
+        }
+      },
+      "additionalProperties": true
+    },
+    "LoopSpec": {
+      "type": "object",
+      "properties": {
+        "seconds": {
+          "description": "Loop length in seconds.",
+          "type": "number"
+        },
+        "fps": {
+          "description": "Frames per second.",
+          "type": "integer"
+        },
+        "story": {
+          "description": "Seconds of the whole story the live wallpaper plays once before the loop (a start part); no effect on the Dota video. Absent: the loop alone.",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "seconds",
+        "fps"
+      ],
+      "additionalProperties": true
+    },
+    "MeshWarp": {
+      "type": "object",
+      "properties": {
+        "grid": {
+          "type": "integer",
+          "default": 32
+        },
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WarpPin"
+          }
+        },
+        "waves": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/WarpWave"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "ModelLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "model"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "asset": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "primitive": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0.5
+        },
+        "rotation": {
+          "$ref": "#/$defs/ModelRotation"
+        },
+        "spin": {
+          "$ref": "#/$defs/ModelSpin"
+        },
+        "material": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerMaterial"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "ModelRotation": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "y": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "z": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "ModelSpin": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number",
+          "default": 0
+        },
+        "y": {
+          "type": "number",
+          "default": 0
+        },
+        "z": {
+          "type": "number",
+          "default": 0
+        }
+      },
+      "additionalProperties": true
+    },
+    "MotionBlur": {
+      "type": "object",
+      "properties": {
+        "shutter": {
+          "type": "number",
+          "default": 0.5
+        },
+        "samples": {
+          "type": "integer",
+          "default": 8
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleAttractor": {
+      "description": "Particles are pulled towards a control point, or pushed away with a negative strength.",
+      "type": "object",
+      "properties": {
+        "point": {
+          "description": "The id of a control point of the system.",
+          "type": "string"
+        },
+        "strength": {
+          "description": "The pull, units per second per second; negative pushes away.",
+          "type": "number"
+        },
+        "radius": {
+          "description": "Radius beyond which the point does not pull, units; 0: everywhere.",
+          "type": "number",
+          "default": 0
+        }
+      },
+      "required": [
+        "point",
+        "strength"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleChild": {
+      "description": "A particles layer whose particles are born from this system's particles: along the path, at birth or at death.",
+      "type": "object",
+      "properties": {
+        "on": {
+          "description": "When the child emits: follow (along the path), spawn (at birth) or death (at death).",
+          "enum": [
+            "follow",
+            "spawn",
+            "death"
+          ]
+        },
+        "layer": {
+          "description": "The id of the child particles layer.",
+          "type": "string"
+        },
+        "count": {
+          "description": "Child particles per birth or death, or per second for follow.",
+          "type": "number",
+          "default": 1
+        }
+      },
+      "required": [
+        "on",
+        "layer"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleControlPoint": {
+      "description": "A named point operators refer to; it may follow the cursor on the desktop.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "at": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cursor": {
+          "description": "The point follows the cursor on the desktop; the Dota video holds it at \"at\".",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleDepth": {
+      "description": "Particles in depth: their distance behind the layer and, with perspective, projection by the scene camera.",
+      "type": "object",
+      "properties": {
+        "z": {
+          "description": "Distance behind the layer's plane at birth, units; 0 is on the plane, negative is nearer.",
+          "$ref": "#/$defs/ParticleRange"
+        },
+        "speedZ": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "perspective": {
+          "description": "Project particles with the scene camera's field of view (camera.fov): farther ones look smaller.",
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleKey": {
+      "type": "object",
+      "properties": {
+        "at": {
+          "type": "number"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "at",
+        "value"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleOperator": {
+      "description": "A force or limit on every particle while it lives; \"type\" picks it.",
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ParticleTurbulence"
+        },
+        {
+          "$ref": "#/$defs/ParticleVortex"
+        },
+        {
+          "$ref": "#/$defs/ParticleAttractor"
+        },
+        {
+          "$ref": "#/$defs/ParticleSpeedCap"
+        }
+      ],
+      "additionalProperties": true
+    },
+    "ParticleRange": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleSheet": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer"
+        },
+        "rows": {
+          "type": "integer"
+        },
+        "frames": {
+          "type": "integer"
+        },
+        "playback": {
+          "enum": [
+            "sequence",
+            "once",
+            "random"
+          ],
+          "default": "sequence"
+        },
+        "rate": {
+          "type": "number",
+          "default": 1
+        }
+      },
+      "required": [
+        "columns",
+        "rows",
+        "frames"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleSpawn": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "area",
+            "top",
+            "bottom",
+            "left",
+            "right",
+            "point",
+            "box",
+            "disc"
+          ],
+          "default": "area"
+        },
+        "center": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "size": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "inner": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "radius": {
+          "type": "number",
+          "default": 0
+        },
+        "innerRadius": {
+          "type": "number",
+          "default": 0
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "side": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleSpeedCap": {
+      "description": "No particle moves faster than max.",
+      "type": "object",
+      "properties": {
+        "max": {
+          "description": "The highest speed, units per second.",
+          "type": "number"
+        }
+      },
+      "required": [
+        "max"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleSystem": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "number",
+          "default": 100
+        },
+        "spawn": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleSpawn"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wrap": {
+          "type": "boolean",
+          "default": false
+        },
+        "life": {
+          "$ref": "#/$defs/ParticleRange"
+        },
+        "speed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "direction": {
+          "type": "number",
+          "default": -90
+        },
+        "spread": {
+          "type": "number",
+          "default": 0
+        },
+        "radial": {
+          "type": "boolean",
+          "default": false
+        },
+        "velocityMin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "velocityMax": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gravity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "drag": {
+          "type": "number",
+          "default": 0
+        },
+        "wobble": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wobbleFrequency": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "size": {
+          "$ref": "#/$defs/ParticleRange"
+        },
+        "sizeExponent": {
+          "type": "number",
+          "default": 1
+        },
+        "sizeOverLife": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ParticleKey"
+          }
+        },
+        "pulse": {
+          "type": "number",
+          "default": 0
+        },
+        "pulseFrequency": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rotation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tumble": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleTumble"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alignToMotion": {
+          "type": "boolean",
+          "default": false
+        },
+        "motionUp": {
+          "type": "boolean",
+          "default": false
+        },
+        "trail": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleTrail"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stretch": {
+          "type": "number",
+          "default": 0
+        },
+        "aspect": {
+          "type": "number",
+          "default": 1
+        },
+        "color": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GradientStop"
+          }
+        },
+        "tint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleTint"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "alpha": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "flicker": {
+          "type": "number",
+          "default": 0
+        },
+        "flickerFrequency": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRange"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sprite": {
+          "enum": [
+            "softDot",
+            "dot",
+            "texture"
+          ],
+          "default": "softDot"
+        },
+        "texture": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sheet": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleSheet"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "operators": {
+          "description": "Forces and limits on every particle while it lives, in order: turbulence, vortex, attract, speedCap.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ParticleOperator"
+          }
+        },
+        "controlPoints": {
+          "description": "Named points operators refer to; a point may follow the cursor on the desktop.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ParticleControlPoint"
+          }
+        },
+        "depth": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleDepth"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "children": {
+          "description": "Particles layers whose particles are born from this system's particles.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ParticleChild"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleTint": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/colorValue"
+        },
+        "to": {
+          "$ref": "#/$defs/colorValue"
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleTrail": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number",
+          "default": 0
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "scale",
+        "max"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleTumble": {
+      "type": "object",
+      "properties": {
+        "startX": {
+          "$ref": "#/$defs/ParticleRange"
+        },
+        "startY": {
+          "$ref": "#/$defs/ParticleRange"
+        },
+        "speedX": {
+          "$ref": "#/$defs/ParticleRange"
+        },
+        "speedY": {
+          "$ref": "#/$defs/ParticleRange"
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleTurbulence": {
+      "description": "A noise field that pushes particles around in swirls.",
+      "type": "object",
+      "properties": {
+        "strength": {
+          "description": "The push, units per second per second.",
+          "type": "number"
+        },
+        "scale": {
+          "description": "Size of the field's swirls, units.",
+          "type": "number",
+          "default": 0.2
+        },
+        "cycles": {
+          "description": "How many times the field changes over the loop: a whole number, so the loop closes.",
+          "type": "integer",
+          "default": 1
+        }
+      },
+      "required": [
+        "strength"
+      ],
+      "additionalProperties": true
+    },
+    "ParticleVortex": {
+      "description": "Particles circle a point, faster or slower with the distance.",
+      "type": "object",
+      "properties": {
+        "center": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "inner": {
+          "type": "number",
+          "default": 0
+        },
+        "outer": {
+          "description": "Radius beyond which the vortex does not act, units; 0: everywhere.",
+          "type": "number",
+          "default": 0
+        },
+        "speedInner": {
+          "description": "Speed round the middle at the inner radius, units per second; positive is clockwise.",
+          "type": "number"
+        },
+        "speedOuter": {
+          "type": "number",
+          "default": 0
+        }
+      },
+      "required": [
+        "speedInner"
+      ],
+      "additionalProperties": true
+    },
+    "ParticlesLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "particles"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "preset": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "system": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleSystem"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "ProceduralLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "procedural"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "shader": {
+          "type": "string"
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "shader"
+      ],
+      "additionalProperties": true
+    },
+    "PuppetAnimationLayer": {
+      "type": "object",
+      "properties": {
+        "animation": {
+          "type": "integer"
+        },
+        "rate": {
+          "description": "Speed: 1 as in the puppet file, 0.5 half as fast. A number or keys; the clip advances by the rate summed over time.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "blend": {
+          "description": "Weight 0..1: a normal layer's share in the mix, an additive layer's strength. A number or keys.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "additive": {
+          "type": "boolean",
+          "default": false
+        },
+        "visible": {
+          "description": "Whether the layer plays: true or false, or keys of 1 (on) and 0 (off) with \"ease\": \"hold\".",
+          "$ref": "#/$defs/switchValue",
+          "default": true
+        },
+        "phase": {
+          "type": "number",
+          "default": 0
+        },
+        "blendIn": {
+          "description": "Seconds over which the layer fades in when it turns on; 0 uses blendTime.",
+          "type": "number",
+          "default": 0
+        },
+        "blendOut": {
+          "description": "Seconds over which the layer fades out when it turns off; 0 uses blendTime.",
+          "type": "number",
+          "default": 0
+        },
+        "blendTime": {
+          "description": "Fade in and out, seconds, where blendIn or blendOut is 0; 0 switches at once.",
+          "type": "number",
+          "default": 0
+        }
+      },
+      "required": [
+        "animation"
+      ],
+      "additionalProperties": true
+    },
+    "RenderSettings": {
+      "type": "object",
+      "properties": {
+        "antialias": {
+          "type": "integer",
+          "default": 2
+        },
+        "hdr": {
+          "type": "boolean",
+          "default": true
+        },
+        "tonemap": {
+          "enum": [
+            "none",
+            "soft",
+            "reinhard",
+            "aces"
+          ],
+          "default": "soft"
+        },
+        "exposure": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "dither": {
+          "type": "boolean",
+          "default": true
+        },
+        "mipmaps": {
+          "type": "boolean",
+          "default": true
+        },
+        "bloom": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Bloom"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "atmosphere": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Atmosphere"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "motionBlur": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MotionBlur"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "depthOfField": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DepthOfField"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "SceneAsset": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "description": "Path relative to the scene folder with /, such as \"assets/bg.png\".",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "own",
+            "user",
+            "library",
+            "link"
+          ]
+        },
+        "license": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "source"
+      ],
+      "additionalProperties": true
+    },
+    "SceneCamera": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "ortho",
+            "perspective"
+          ],
+          "default": "ortho"
+        },
+        "drift": {
+          "$ref": "#/$defs/CameraDrift"
+        },
+        "zoom": {
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "fov": {
+          "$ref": "#/$defs/numberValue",
+          "default": 35
+        }
+      },
+      "additionalProperties": true
+    },
+    "SceneLight": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "point",
+            "directional"
+          ],
+          "default": "point"
+        },
+        "color": {
+          "$ref": "#/$defs/colorValue",
+          "default": "#ffffff"
+        },
+        "intensity": {
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "position": {
+          "$ref": "#/$defs/vectorValue",
+          "default": [
+            0,
+            0
+          ]
+        },
+        "height": {
+          "$ref": "#/$defs/numberValue",
+          "default": 0.2
+        },
+        "radius": {
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "depth": {
+          "type": "number",
+          "default": 0
+        },
+        "angle": {
+          "$ref": "#/$defs/numberValue",
+          "default": 45
+        },
+        "elevation": {
+          "$ref": "#/$defs/numberValue",
+          "default": 45
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "SceneLighting": {
+      "type": "object",
+      "properties": {
+        "ambient": {
+          "$ref": "#/$defs/colorValue",
+          "default": "#808080"
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SceneLight"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "SceneLive": {
+      "type": "object",
+      "properties": {
+        "audio": {
+          "type": "boolean",
+          "default": false
+        },
+        "mouse": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "SceneSetting": {
+      "description": "A setting the user of the scene picks (colour, number, switch, choice, text) and the values it drives.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Setting name: Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/$defs/LocalizedText"
+        },
+        "kind": {
+          "description": "What the setting holds: color, number, switch, choice or text.",
+          "enum": [
+            "color",
+            "number",
+            "switch",
+            "choice",
+            "text"
+          ]
+        },
+        "value": {
+          "description": "The value as picked (the default for a new user): a colour, a number, true/false, an option's value or text.",
+          "$ref": "#/$defs/param"
+        },
+        "min": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "step": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "options": {
+          "description": "What a choice offers, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SettingOption"
+          }
+        },
+        "drives": {
+          "description": "The values the setting sets: value paths, each optionally only when the setting equals an option.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SettingTarget"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "kind",
+        "value"
+      ],
+      "additionalProperties": true
+    },
+    "SettingOption": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocalizedText"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": true
+    },
+    "SettingTarget": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "description": "Value path the setting drives, such as \"flag.color\", \"rain.visible\" or \"fog.params.density\".",
+          "type": "string"
+        },
+        "when": {
+          "description": "The setting's value at which this on/off target is on (an option, or \"true\"/\"false\"); absent: the target takes the setting's value.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": true
+    },
+    "ShaderEffect": {
+      "description": "A scene's own HLSL shader: the source file, its pictures and what to draw when it cannot run.",
+      "type": "object",
+      "properties": {
+        "file": {
+          "description": "The HLSL source file in the scene folder (.hlsl), listed in assets.",
+          "type": "string"
+        },
+        "textures": {
+          "description": "Pictures the shader reads as texture0..texture7: a scene file, \"$layer\" (the layer's picture) or \"$under\" (the frame under the layer); null reads white.",
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "fallback": {
+          "description": "What to draw when the shader cannot run: skip (without it) or hide (hide the layer).",
+          "enum": [
+            "skip",
+            "hide"
+          ],
+          "default": "skip"
+        }
+      },
+      "required": [
+        "file"
+      ],
+      "additionalProperties": true
+    },
+    "TextLayer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "text"
+        },
+        "id": {
+          "description": "Layer name, unique in the whole scene (groups included): Latin letters, digits, - and _.",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "text",
+            "time",
+            "date",
+            "track"
+          ],
+          "default": "text"
+        },
+        "text": {
+          "type": "string",
+          "default": ""
+        },
+        "hours24": {
+          "type": "boolean",
+          "default": true
+        },
+        "seconds": {
+          "type": "boolean",
+          "default": false
+        },
+        "dateFormat": {
+          "type": "string",
+          "default": "dddd, d MMMM"
+        },
+        "language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "track": {
+          "enum": [
+            "artistTitle",
+            "title",
+            "artist",
+            "album"
+          ],
+          "default": "artistTitle"
+        },
+        "font": {
+          "type": "string",
+          "default": "Segoe UI"
+        },
+        "fontFile": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "weight": {
+          "type": "integer",
+          "default": 400
+        },
+        "size": {
+          "type": "number",
+          "default": 0.08
+        },
+        "color": {
+          "$ref": "#/$defs/colorValue",
+          "default": "#ffffff"
+        },
+        "colorFromCover": {
+          "type": "boolean",
+          "default": false
+        },
+        "align": {
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "default": "center"
+        },
+        "depth": {
+          "description": "Depth: 0 for the far background, more for nearer layers. Camera drift moves deeper layers more.",
+          "type": "number",
+          "default": 0
+        },
+        "blend": {
+          "description": "How the layer blends with what is below it.",
+          "enum": [
+            "normal",
+            "add",
+            "screen",
+            "multiply",
+            "darken",
+            "colorBurn",
+            "linearBurn",
+            "lighten",
+            "colorDodge",
+            "overlay",
+            "softLight",
+            "hardLight",
+            "vividLight",
+            "linearLight",
+            "pinLight",
+            "hardMix",
+            "difference",
+            "exclusion",
+            "reflect",
+            "glow",
+            "phoenix",
+            "average",
+            "negation",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity",
+            "tint",
+            "brighten"
+          ],
+          "default": "normal"
+        },
+        "opacity": {
+          "description": "Opacity 0..1.",
+          "$ref": "#/$defs/numberValue",
+          "default": 1
+        },
+        "visible": {
+          "type": "boolean",
+          "default": true
+        },
+        "desktopOnly": {
+          "description": "Drawn only by the live wallpaper; the Dota video and previews without live data skip it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sceneEffect": {
+          "type": "boolean",
+          "default": false
+        },
+        "transform": {
+          "description": "Offset, scale and rotation of the layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerTransform"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attach": {
+          "description": "Pins the layer to an attachment point of a puppet layer: it moves with that point's bone.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LayerAttach"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effects": {
+          "description": "Effects of the layer, in order.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EffectInstance"
+          }
+        },
+        "params": {
+          "description": "Params read by the layer's shader, particle preset or node.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": true
+    },
+    "TextureFrames": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer"
+        },
+        "rows": {
+          "type": "integer"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "cycles": {
+          "type": "integer",
+          "default": 1
+        },
+        "durations": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "columns",
+        "rows",
+        "count"
+      ],
+      "additionalProperties": true
+    },
+    "TextureMotion": {
+      "type": "object",
+      "properties": {
+        "scroll": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "repeat": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "frames": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextureFrames"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "VideoTexture": {
+      "description": "A video file playing inside an image layer; the layer's picture is shown where it cannot play.",
+      "type": "object",
+      "properties": {
+        "file": {
+          "description": "The video file in the scene folder (.webm, .mp4), listed in assets.",
+          "type": "string"
+        },
+        "fps": {
+          "description": "Frames per second to play at; absent: the file's own rate.",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "offset": {
+          "description": "Seconds into the video at the start of the loop.",
+          "type": "number",
+          "default": 0
+        }
+      },
+      "required": [
+        "file"
+      ],
+      "additionalProperties": true
+    },
+    "WarpPin": {
+      "type": "object",
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/vector"
+        },
+        "offset": {
+          "$ref": "#/$defs/vectorValue",
+          "default": [
+            0,
+            0
+          ]
+        }
+      },
+      "required": [
+        "at"
+      ],
+      "additionalProperties": true
+    },
+    "WarpWave": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/vector"
+        },
+        "to": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "amp": {
+          "$ref": "#/$defs/numberValue"
+        },
+        "period": {
+          "type": "number"
+        },
+        "length": {
+          "type": "number",
+          "default": 0.5
+        },
+        "reach": {
+          "type": "number",
+          "default": 0.5
+        },
+        "phase": {
+          "type": "number",
+          "default": 0
+        },
+        "mask": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "from",
+        "amp",
+        "period"
+      ],
+      "additionalProperties": true
+    },
+    "color": {
+      "description": "\"#rrggbb\", \"#rrggbbaa\" or [r, g, b] / [r, g, b, a] in 0..1.",
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 4
+        }
+      ]
+    },
+    "colorValue": {
+      "description": "A colour: constant, a wave { \"wave\" }, keyframes { \"keys\" }, a formula { \"expr\" } or a script { \"script\" } / { \"scriptFile\" }.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/color"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "wave": {
+              "enum": [
+                "sine",
+                "triangle",
+                "saw"
+              ]
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "amp": {
+              "$ref": "#/$defs/color"
+            },
+            "base": {
+              "$ref": "#/$defs/color"
+            },
+            "phase": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "wave",
+            "period",
+            "amp"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "keys": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "t": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "v": {
+                    "$ref": "#/$defs/color"
+                  },
+                  "ease": {
+                    "enum": [
+                      "linear",
+                      "hold",
+                      "smooth",
+                      "easeIn",
+                      "easeOut"
+                    ]
+                  }
+                },
+                "required": [
+                  "t",
+                  "v"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "keys"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "expr": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 3,
+              "maxItems": 4
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "base": {
+              "$ref": "#/$defs/color"
+            }
+          },
+          "required": [
+            "expr"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "script": {
+              "description": "The script's source.",
+              "type": "string",
+              "minLength": 1
+            },
+            "scriptFile": {
+              "description": "The script file in the scene folder (.js), listed in assets.",
+              "type": "string"
+            },
+            "start": {
+              "$ref": "#/$defs/color"
+            },
+            "inputs": {
+              "description": "What the script reads besides the time: mouse, audio, clock, media, settings.<id> or another value's path.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "start"
+          ],
+          "additionalProperties": false,
+          "oneOf": [
+            {
+              "required": [
+                "script"
+              ]
+            },
+            {
+              "required": [
+                "scriptFile"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "number": {
+      "type": "number"
+    },
+    "numberValue": {
+      "description": "A number: constant, a wave { \"wave\" }, keyframes { \"keys\" }, a formula { \"expr\" } or a script { \"script\" } / { \"scriptFile\" }.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/number"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "wave": {
+              "enum": [
+                "sine",
+                "triangle",
+                "saw"
+              ]
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "amp": {
+              "$ref": "#/$defs/number"
+            },
+            "base": {
+              "$ref": "#/$defs/number"
+            },
+            "phase": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "wave",
+            "period",
+            "amp"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "keys": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "t": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "v": {
+                    "$ref": "#/$defs/number"
+                  },
+                  "ease": {
+                    "enum": [
+                      "linear",
+                      "hold",
+                      "smooth",
+                      "easeIn",
+                      "easeOut"
+                    ]
+                  }
+                },
+                "required": [
+                  "t",
+                  "v"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "keys"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "expr": {
+              "type": "string"
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "base": {
+              "$ref": "#/$defs/number"
+            }
+          },
+          "required": [
+            "expr"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "script": {
+              "description": "The script's source.",
+              "type": "string",
+              "minLength": 1
+            },
+            "scriptFile": {
+              "description": "The script file in the scene folder (.js), listed in assets.",
+              "type": "string"
+            },
+            "start": {
+              "$ref": "#/$defs/number"
+            },
+            "inputs": {
+              "description": "What the script reads besides the time: mouse, audio, clock, media, settings.<id> or another value's path.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "start"
+          ],
+          "additionalProperties": false,
+          "oneOf": [
+            {
+              "required": [
+                "script"
+              ]
+            },
+            {
+              "required": [
+                "scriptFile"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "param": {
+      "description": "A param read by the layer's shader, preset or node: a number, a vector, a colour (each may be animated), a string or a switch.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/numberValue"
+        },
+        {
+          "$ref": "#/$defs/vectorValue"
+        },
+        {
+          "$ref": "#/$defs/colorValue"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "switchValue": {
+      "description": "On or off: true or false, or a number value of 1 (on) and 0 (off), such as keys with \"ease\": \"hold\".",
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/$defs/numberValue"
+        }
+      ]
+    },
+    "vector": {
+      "description": "[x, y].",
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "vectorValue": {
+      "description": "A vector: constant, a wave { \"wave\" }, keyframes { \"keys\" }, a formula { \"expr\" } or a script { \"script\" } / { \"scriptFile\" }.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/vector"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "wave": {
+              "enum": [
+                "sine",
+                "triangle",
+                "saw"
+              ]
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "amp": {
+              "$ref": "#/$defs/vector"
+            },
+            "base": {
+              "$ref": "#/$defs/vector"
+            },
+            "phase": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "wave",
+            "period",
+            "amp"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "keys": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "t": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "v": {
+                    "$ref": "#/$defs/vector"
+                  },
+                  "ease": {
+                    "enum": [
+                      "linear",
+                      "hold",
+                      "smooth",
+                      "easeIn",
+                      "easeOut"
+                    ]
+                  }
+                },
+                "required": [
+                  "t",
+                  "v"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "keys"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "expr": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "period": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "base": {
+              "$ref": "#/$defs/vector"
+            }
+          },
+          "required": [
+            "expr"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "script": {
+              "description": "The script's source.",
+              "type": "string",
+              "minLength": 1
+            },
+            "scriptFile": {
+              "description": "The script file in the scene folder (.js), listed in assets.",
+              "type": "string"
+            },
+            "start": {
+              "$ref": "#/$defs/vector"
+            },
+            "inputs": {
+              "description": "What the script reads besides the time: mouse, audio, clock, media, settings.<id> or another value's path.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "start"
+          ],
+          "additionalProperties": false,
+          "oneOf": [
+            {
+              "required": [
+                "script"
+              ]
+            },
+            {
+              "required": [
+                "scriptFile"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

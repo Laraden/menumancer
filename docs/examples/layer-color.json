@@ -1,0 +1,11 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Colour layers" },
+  "loop": { "seconds": 8, "fps": 30 },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#0b1030" },
+    { "id": "flash", "type": "color", "blend": "add",
+      "color": { "keys": [ { "t": 0, "v": "#00000000" }, { "t": 4, "v": "#ff7a3040", "ease": "smooth" }, { "t": 8, "v": "#00000000" } ] } }
+  ]
+}

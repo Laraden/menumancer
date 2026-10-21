@@ -18,7 +18,7 @@ Scenes you built in the editor or brought over from Wallpaper Engine. Under “A
 
 ## 4. Wallpaper Engine scenes
 
-Scenes from your Workshop subscriptions. The badge says whether the app's engine takes a scene fully, partly or not yet; the “Supported” filter hides the last ones. A tile brings the scene into “My scenes”; WE files are only read.
+Scenes from your Workshop subscriptions. The badge says whether the app's engine takes a scene fully, partly or not yet; the “Supported” filter hides the last ones. A tile brings the scene into “My scenes” with the settings you picked for it in WE itself; WE files are only read. The app can't draw 3D scenes yet and says so. After an app update a tile brings the scene over again, and the earlier copy stays in “My scenes”.
 
 ## 5. Preview
 

@@ -1,0 +1,15 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Video texture" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#10141f" },
+    { "id": "pond", "type": "image", "asset": "assets/pond.png", "size": [0.8, 0.45],
+      "video": { "file": "assets/pond.webm", "fps": 10, "offset": 0.5 } }
+  ],
+  "assets": [
+    { "path": "assets/pond.png", "source": "own", "license": "CC0-1.0", "author": "Menumancer" },
+    { "path": "assets/pond.webm", "source": "own", "license": "CC0-1.0", "author": "Menumancer" }
+  ]
+}

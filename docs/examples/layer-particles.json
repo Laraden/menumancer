@@ -1,0 +1,21 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Particles" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#120a08" },
+    { "id": "embers", "type": "particles", "preset": "embers", "depth": 0.8, "params": { "count": 60 } },
+    { "id": "bubbles", "type": "particles", "blend": "add", "depth": 0.4,
+      "system": {
+        "count": 40,
+        "spawn": { "kind": "bottom" },
+        "life": { "min": 4, "max": 6 },
+        "speed": { "min": 0.05, "max": 0.1 },
+        "direction": -90,
+        "spread": 20,
+        "size": { "min": 0.01, "max": 0.02 },
+        "color": [ { "at": 0, "color": "#7ae0ff" }, { "at": 1, "color": "#7ae0ff00" } ]
+      } }
+  ]
+}

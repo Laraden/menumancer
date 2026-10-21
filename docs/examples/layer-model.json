@@ -1,0 +1,17 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "A 3D shape" },
+  "loop": { "seconds": 12, "fps": 30 },
+  "camera": { "type": "perspective", "fov": 35 },
+  "lighting": {
+    "ambient": "#20243a",
+    "lights": [ { "id": "key", "type": "directional", "color": "#fff0d8", "intensity": 1.2, "angle": 225, "elevation": 40 } ]
+  },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#070812" },
+    { "id": "crystal", "type": "model", "primitive": "crystal", "depth": 0.5, "size": 0.4,
+      "rotation": { "x": 15 }, "spin": { "y": 1 },
+      "material": { "color": "#8f6bff", "roughness": 0.15, "emissive": "#5a2dff", "glow": 0.6 } }
+  ]
+}

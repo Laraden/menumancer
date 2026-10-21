@@ -1,0 +1,23 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Frame quality" },
+  "loop": { "seconds": 10, "fps": 30 },
+  "render": {
+    "antialias": 2,
+    "hdr": true,
+    "tonemap": "aces",
+    "bloom": { "strength": 0.5, "threshold": 1 },
+    "atmosphere": { "color": "#b3c7db", "density": 0.4 },
+    "depthOfField": { "focus": 0.8, "range": 0.2, "blur": 6 }
+  },
+  "layers": [
+    { "id": "sky", "type": "gradient", "angle": 90,
+      "stops": [ { "at": 0, "color": "#203a63" }, { "at": 1, "color": "#d8b48a" } ] },
+    { "id": "far", "type": "procedural", "shader": "mountains", "depth": 0, "params": { "horizon": 0.25, "variant": 1 } },
+    { "id": "near", "type": "procedural", "shader": "mountains", "depth": 0.8, "params": { "horizon": 0.4, "color": "#05070c" } },
+    { "id": "sun", "type": "gradient", "kind": "radial", "blend": "add", "depth": 0,
+      "transform": { "offset": [0.3, -0.1], "scale": 0.15 },
+      "stops": [ { "at": 0, "color": "#ffffff" }, { "at": 1, "color": "#ffffff00" } ] }
+  ]
+}
