@@ -1,6 +1,6 @@
-# How to use Menumancer
+# Jak používat Menumancer
 
-Guides for each section of the app. The same guide opens in the app with the «?» button next to the section title, and «Show on screen» walks you through the steps with highlights.
+Návody k jednotlivým sekcím aplikace. Stejný návod otevře přímo v aplikaci tlačítko „?“ vedle názvu sekce a „Ukázat na obrazovce“ vás provede kroky se zvýrazněním. Návody krok za krokem k celým úkolům (první spuštění, řešení potíží, otázky) najdete v [příručce](../../handbook/cs/README.md).
 
 - [Knihovna](library.md): Všechna vaše pozadí pro menu Doty. Tady je nainstalujete do hry, změníte jim hudbu a vzhled menu a sdílíte presety.
 - [Vytvořit](create.md): Nové pozadí ve čtyřech krocích: odkud vzít video, který úsek se bude opakovat, jaká hudba a jak ho sestavit.

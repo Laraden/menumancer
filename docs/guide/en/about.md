@@ -6,7 +6,7 @@ Version, updates, change history, all guides and how to support development.
 
 ## 1. Updates
 
-The app checks for updates on its own at startup, at most once a day, and installs them only when you click. “Pre-release versions” offers what's still being tested.
+The app checks for updates on its own at every start and every hour while it is open, and installs them only when you click. “Pre-release versions” offers what's still being tested.
 
 ## 2. Version history
 
