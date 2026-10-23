@@ -1,6 +1,6 @@
 # How to use Menumancer
 
-Guides for each section of the app. The same guide opens in the app with the «?» button next to the section title, and «Show on screen» walks you through the steps with highlights.
+Guides for each section of the app. The same guide opens in the app with the «?» button next to the section title, and «Show on screen» walks you through the steps with highlights. Step-by-step guides for whole tasks (getting started, troubleshooting, FAQ) are in the [handbook](../../handbook/en/README.md).
 
 - [Library](library.md): All your Dota menu backgrounds. This is where you install them into the game, change their music and menu look, and share presets.
 - [Create](create.md): A new background in four steps: where the video comes from, which part loops, what music plays and how it's built.

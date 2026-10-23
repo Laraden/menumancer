@@ -6,7 +6,7 @@ Verze, aktualizace, historie změn, všechny návody a jak podpořit vývoj.
 
 ## 1. Aktualizace
 
-Aplikace sama hledá aktualizace při spuštění, nejvýš jednou denně, a instaluje je jen po vašem kliknutí. „Testovací verze“ nabízejí to, co se ještě testuje.
+Aplikace sama hledá aktualizace při každém spuštění a každou hodinu, dokud je otevřená, a instaluje je jen po vašem kliknutí. „Testovací verze“ nabízejí to, co se ještě testuje.
 
 ## 2. Historie verzí
 
@@ -22,4 +22,4 @@ Aplikace je zdarma a bez reklam. Tady můžete podpořit autora.
 
 ---
 
-[All guides](README.md) · [Download Menumancer](https://github.com/Laraden/menumancer/releases/latest)
+[Všechny návody](README.md) · [Stáhnout Menumancer](https://github.com/Laraden/menumancer/releases/latest)

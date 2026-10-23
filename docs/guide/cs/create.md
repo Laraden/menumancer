@@ -18,4 +18,4 @@ V posledním kroku „Sestavit“ zařadí pozadí do fronty. Sestavení běží
 
 ---
 
-[All guides](README.md) · [Download Menumancer](https://github.com/Laraden/menumancer/releases/latest)
+[Všechny návody](README.md) · [Stáhnout Menumancer](https://github.com/Laraden/menumancer/releases/latest)

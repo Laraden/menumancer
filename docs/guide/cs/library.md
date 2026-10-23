@@ -34,4 +34,4 @@ Hudba v menu a v dalších chvílích: vlastní skladba, playlist nebo výchozí
 
 ---
 
-[All guides](README.md) · [Download Menumancer](https://github.com/Laraden/menumancer/releases/latest)
+[Všechny návody](README.md) · [Stáhnout Menumancer](https://github.com/Laraden/menumancer/releases/latest)
