@@ -68,6 +68,17 @@
         }
       ]
     },
+    "wind": {
+      "description": "One wind for the whole scene, with gusts: particle layers with \"wind\" are carried by it.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SceneWind"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "live": {
       "description": "What the scene reacts to as a live wallpaper (sound, mouse). No effect on the Dota video.",
       "anyOf": [
@@ -1594,6 +1605,9 @@
           "$ref": "#/$defs/numberValue",
           "default": 1
         },
+        "scaleY": {
+          "$ref": "#/$defs/numberValue"
+        },
         "rotation": {
           "$ref": "#/$defs/numberValue",
           "default": 0
@@ -1917,6 +1931,27 @@
       ],
       "additionalProperties": true
     },
+    "ParticleClumps": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "description": "Size of a clump, frame heights.",
+          "type": "number",
+          "default": 0.3
+        },
+        "amount": {
+          "description": "How empty the gaps between clumps are: 0 an even layer, 1 empty gaps.",
+          "type": "number",
+          "default": 0.5
+        },
+        "carried": {
+          "description": "How much of the system's wind carries the clumps: 1 moves them with the air the particles ride, 0 keeps them in place.",
+          "type": "number",
+          "default": 1
+        }
+      },
+      "additionalProperties": true
+    },
     "ParticleControlPoint": {
       "description": "A named point operators refer to; it may follow the cursor on the desktop.",
       "type": "object",
@@ -1967,8 +2002,29 @@
           "description": "Project particles with the scene camera's field of view (camera.fov): farther ones look smaller.",
           "type": "boolean",
           "default": false
+        },
+        "volume": {
+          "description": "With perspective: spawn and wrap areas widen with the depth, so particles fill the view at every distance.",
+          "type": "boolean",
+          "default": false
         }
       },
+      "additionalProperties": true
+    },
+    "ParticleFront": {
+      "type": "object",
+      "properties": {
+        "direction": {
+          "type": "number",
+          "default": 0
+        },
+        "speed": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "speed"
+      ],
       "additionalProperties": true
     },
     "ParticleKey": {
@@ -1985,6 +2041,49 @@
         "at",
         "value"
       ],
+      "additionalProperties": true
+    },
+    "ParticleLens": {
+      "type": "object",
+      "properties": {
+        "wind": {
+          "description": "How hard the wind blows towards the camera over the loop, 0..1: keys or a formula of loop time (no script).",
+          "$ref": "#/$defs/numberValue"
+        },
+        "sceneWind": {
+          "description": "The scene wind drives the hits instead of wind: towards-camera wind = this x (-z of the scene wind). 0 keeps wind.",
+          "type": "number",
+          "default": 0
+        },
+        "threshold": {
+          "type": "number",
+          "default": 0.5
+        },
+        "stick": {
+          "type": "number",
+          "default": 0.3
+        },
+        "smear": {
+          "type": "number",
+          "default": 0.5
+        },
+        "bend": {
+          "type": "number",
+          "default": 1.6
+        },
+        "water": {
+          "description": "Rain on glass instead of snow: each hit is a clear drop all its life (no flake), smear sizes longer along the direction; its colour's alpha fades it.",
+          "type": "boolean",
+          "default": false
+        },
+        "sweptBy": {
+          "description": "Id of another particles layer whose particles sweep these drops up: a drop ends when one passes over it (a run down the glass).",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
       "additionalProperties": true
     },
     "ParticleOperator": {
@@ -2017,6 +2116,44 @@
         },
         "max": {
           "type": "number"
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleRefraction": {
+      "type": "object",
+      "properties": {
+        "normalMap": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "amount": {
+          "type": "number",
+          "default": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "ParticleRibbon": {
+      "type": "object",
+      "properties": {
+        "seconds": {
+          "type": "number",
+          "default": 0.5
+        },
+        "segments": {
+          "type": "integer",
+          "default": 32
+        },
+        "tailWidth": {
+          "type": "number",
+          "default": 0
+        },
+        "tailAlpha": {
+          "type": "number",
+          "default": 0
         }
       },
       "additionalProperties": true
@@ -2151,6 +2288,28 @@
           "type": "number",
           "default": 100
         },
+        "front": {
+          "description": "With an animated params.count: the count travels across the frame as a front, so a returning storm sweeps in from one side.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleFront"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "clumps": {
+          "description": "Denser and thinner patches of particles that the system's wind carries, instead of an even layer.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleClumps"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "spawn": {
           "anyOf": [
             {
@@ -2223,6 +2382,22 @@
         "drag": {
           "type": "number",
           "default": 0
+        },
+        "wind": {
+          "description": "How much of the scene wind carries the particles: 1 moves them with the air, 0 not at all (up to 4).",
+          "type": "number",
+          "default": 0
+        },
+        "windAxes": {
+          "description": "Share of the wind along the layer's x and y (0..1 each): [1, 0] keeps only the wind along the ground. Absent: [1, 1].",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "wobble": {
           "anyOf": [
@@ -2319,6 +2494,17 @@
             }
           ]
         },
+        "ribbon": {
+          "description": "A ribbon behind each particle: a soft band along the path it took over the last seconds, narrowing and fading to the tail, drawn instead of the sprite.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRibbon"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "stretch": {
           "type": "number",
           "default": 0
@@ -2326,6 +2512,17 @@
         "aspect": {
           "type": "number",
           "default": 1
+        },
+        "spriteScale": {
+          "description": "Stretch of every sprite along the layer's x and y after its own turn: a turning puff of a wide system stays wide. Flat particles only.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/vector"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "color": {
           "type": "array",
@@ -2352,6 +2549,11 @@
               "type": "null"
             }
           ]
+        },
+        "brightness": {
+          "description": "Multiplies the particles' colour, not their alpha: above 1 added particles shine brighter.",
+          "type": "number",
+          "default": 1
         },
         "flicker": {
           "type": "number",
@@ -2385,6 +2587,33 @@
           "anyOf": [
             {
               "$ref": "#/$defs/ParticleSheet"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "textureMipmaps": {
+          "description": "False draws the texture from its own pixels at every size (no smaller copies): small sprites stay sharp points.",
+          "type": "boolean",
+          "default": true
+        },
+        "refraction": {
+          "description": "Glass drops: each particle shows the frame under it, shifted by a normal map and multiplied by its colour and picture.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleRefraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "lens": {
+          "description": "Snow hitting the camera: particles born only while the wind towards the camera is above a threshold strike the lens in screen space, stick, smear along the wind and melt into clear drops that refract the frame.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ParticleLens"
             },
             {
               "type": "null"
@@ -2496,6 +2725,16 @@
           "description": "How many times the field changes over the loop: a whole number, so the loop closes.",
           "type": "integer",
           "default": 1
+        },
+        "carried": {
+          "description": "How much of the system's wind carries the field: 1 moves the swirls with the air the particles ride, 0 keeps them in place.",
+          "type": "number",
+          "default": 0
+        },
+        "stir": {
+          "description": "Extra push per unit of the wind's speed where the particle is: gusts stir the field harder.",
+          "type": "number",
+          "default": 0
         }
       },
       "required": [
@@ -3115,6 +3354,38 @@
       ],
       "additionalProperties": true
     },
+    "SceneWind": {
+      "type": "object",
+      "properties": {
+        "direction": {
+          "description": "Where the wind blows, degrees: 0 right, 90 down, -90 up.",
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "speed": {
+          "description": "Wind speed before the gusts, view heights per second.",
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "z": {
+          "description": "Wind along the depth, view heights per second: negative blows towards the camera.",
+          "$ref": "#/$defs/numberValue",
+          "default": 0
+        },
+        "gusts": {
+          "description": "Gusts that swing the wind back and forth, whole waves per loop. Absent: a steady wind.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WindGusts"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
     "SettingOption": {
       "type": "object",
       "properties": {
@@ -3384,7 +3655,7 @@
           "type": "integer"
         },
         "cycles": {
-          "type": "integer",
+          "type": "number",
           "default": 1
         },
         "durations": {
@@ -3538,6 +3809,32 @@
         "amp",
         "period"
       ],
+      "additionalProperties": true
+    },
+    "WindGusts": {
+      "type": "object",
+      "properties": {
+        "strength": {
+          "description": "How strongly gusts swing the wind: speed x (1 + strength x g), g from -1 to 1; above 1 the wind blows back for a moment.",
+          "type": "number",
+          "default": 0.5
+        },
+        "swing": {
+          "description": "How far gusts turn the wind's direction either way, degrees.",
+          "type": "number",
+          "default": 0
+        },
+        "cycles": {
+          "description": "Slowest gust waves per loop (whole, so the loop closes); faster waves join at about 2x and 3x.",
+          "type": "integer",
+          "default": 3
+        },
+        "front": {
+          "description": "Speed of the gust front across the frame along the wind, view heights per second: gusts sweep in from the wind side. 0 changes everywhere at once.",
+          "type": "number",
+          "default": 0
+        }
+      },
       "additionalProperties": true
     },
     "color": {

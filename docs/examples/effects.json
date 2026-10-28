@@ -7,8 +7,11 @@
     { "id": "valley", "type": "image", "asset": "assets/valley.png",
       "effects": [
         { "id": "wind", "effect": "sway", "mask": "assets/valley.mask.png", "params": { "strength": 0.004, "cycles": 3 } },
-        { "id": "grade", "effect": "colorGrade", "params": { "saturation": 1.2, "temperature": 0.1 } }
+        { "id": "grade", "effect": "colorGrade", "params": { "saturation": 1.2, "temperature": 0.1 } },
+        { "id": "glow", "effect": "blend", "textures": ["layer:valley-warm"], "params": { "mode": "screen", "amount": 0.3 } }
       ] },
+    { "id": "valley-warm", "type": "image", "asset": "assets/valley.png", "visible": false,
+      "effects": [ { "id": "warm", "effect": "colorGrade", "params": { "temperature": 0.6 } } ] },
     { "id": "sun", "type": "gradient", "kind": "radial", "blend": "add",
       "transform": { "offset": [0.4, -0.25], "scale": 0.2 },
       "effects": [ { "id": "bloom", "effect": "glow", "params": { "threshold": 0.5 } } ],

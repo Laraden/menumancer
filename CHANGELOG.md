@@ -6,6 +6,13 @@ Full notes for every version: [Releases](https://github.com/Laraden/menumancer/r
 
 <!-- Add each new version here and in CHANGELOG.ru.md. -->
 
+## 1.3.2
+
+Fixes for backgrounds that came out black or didn't show. English voice works without `-lv` (the app sets Dota's voice to a folder
+with no voice files; heroes still speak English), the background is installed again by itself after a Dota patch, About has
+“Report a problem”, the Cinema menu look is removed (it hid Dota Plus stats in matches), Intel graphics encodes are checked for black
+output, Dota moved to another drive is found correctly, and Wallpaper Engine scenes look closer to the original.
+
 ## 1.3.1
 
 Fixes and safety. The app asks for your language on the first start and shows release notes in it, and the video guide is linked in

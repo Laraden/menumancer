@@ -1,7 +1,7 @@
 {
   "format": "menumancer.scene",
   "version": 3,
-  "title": { "en": "Particle forces, depth and children" },
+  "title": { "en": "Particle forces, depth, children and a ribbon" },
   "loop": { "seconds": 12, "fps": 30 },
   "camera": { "fov": 40 },
   "layers": [
@@ -21,10 +21,16 @@
           { "type": "speedCap", "max": 0.4 }
         ],
         "controlPoints": [ { "id": "hand", "at": [0.3, -0.1], "cursor": true } ],
-        "depth": { "z": { "min": 0, "max": 2 }, "speedZ": { "min": -0.1, "max": 0.1 }, "perspective": true },
+        "depth": { "z": { "min": 0, "max": 2 }, "speedZ": { "min": -0.1, "max": 0.1 }, "perspective": true, "volume": true },
         "children": [ { "on": "death", "layer": "ash", "count": 3 } ]
       } },
     { "id": "ash", "type": "particles",
-      "system": { "count": 20, "life": { "min": 1, "max": 2 }, "size": { "min": 0.002, "max": 0.004 } } }
+      "system": { "count": 20, "life": { "min": 1, "max": 2 }, "size": { "min": 0.002, "max": 0.004 } } },
+    { "id": "comet", "type": "particles", "blend": "add",
+      "system": {
+        "count": 1, "spawn": { "kind": "point" }, "life": { "min": 12, "max": 12 }, "speed": { "min": 0, "max": 0 },
+        "wobble": [0.5, 0.25], "wobbleFrequency": { "min": 0.25, "max": 0.25 }, "size": { "min": 0.015, "max": 0.015 },
+        "ribbon": { "seconds": 1.6, "segments": 48, "tailWidth": 0.15, "tailAlpha": 0 }
+      } }
   ]
 }

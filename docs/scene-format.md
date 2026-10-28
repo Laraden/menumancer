@@ -59,6 +59,7 @@ The smallest scene, [examples/minimal.json](examples/minimal.json):
 | `assets` | | Files of the scene with the source and licence of each. |
 | `render` | | Frame quality: antialiasing, HDR, tonemapping, bloom, atmosphere, motion blur, depth of field. |
 | `lighting` | | Scene lights for 3D models and lit pictures. |
+| `wind` | | One wind for the whole scene, with gusts: particle layers with `wind` are carried by it (see [`particles`](#particles)). |
 | `live` | | What the scene reacts to as a live wallpaper (`audio`, `mouse`). |
 
 A field left out takes its default, and the engine does not write defaults when it saves a scene, so a saved file holds
@@ -89,7 +90,7 @@ Every layer has these fields; each kind adds its own.
 | `visible` | `true` | A hidden layer is kept in the file but not drawn. |
 | `desktopOnly` | `false` | Drawn only by the live wallpaper; the Dota video and previews without live data skip it. |
 | `sceneEffect` | `false` | The layer belongs to the editor's "Scene effects" strip (snow, embers, rays) rather than the layer list. |
-| `transform` | none | `offset` `[x, y]`, `scale`, `rotation`, each animatable. |
+| `transform` | none | `offset` `[x, y]`, `scale`, `rotation`, each animatable; optional `scaleY` scales the layer's own y axis on its own (without it y follows `scale`). |
 | `attach` | none | Pins the layer to an attachment point of a puppet: `layer` (the puppet layer's id) and `point` (a point name in its puppet file). The layer moves with the point's bone, its `transform` on top. See [Puppets](#puppets). |
 | `effects` | `[]` | Effects of the layer, in order (see [Effects](#effects)). |
 | `params` | `{}` | Params read by the layer's shader, particle preset or node (see [Params](#params)). |
@@ -186,8 +187,10 @@ their clips are in a puppet file next to the picture (`*.puppet.json`, listed in
 | `phase` | `0` | Where in its round the clip is when the story starts, in fractions of a round. |
 
 Keys of `rate`, `blend` and `visible` without a `period` that run past the loop are a **start part**, and so is a
-`single` clip: the live wallpaper plays `loop.story` seconds once and then repeats its last `loop.seconds`, so the loop
-is the end of the story and the start part runs into it. The Dota video is that loop. Puppet times count from the story
+`single` clip: the live wallpaper plays `loop.story` seconds once and then its last `loop.seconds` on and on, so the loop
+is the end of the story and the start part runs into it. The Dota video is that loop. The live wallpaper's time runs on
+past the loop (play time) and comes round only after whole loops of about an hour, so a period the loop cuts, a script's
+state and a puppet clip play on there with no jump at the loop's end. Puppet times count from the story
 start, and a clip advances by its rate summed over time: a rate keyed up from 0 starts it late. A looping clip that does
 not fit the loop cross-fades over the loop's last second (at most a quarter of it) into its pose a loop earlier. Another layer
 follows a point of the puppet with `attach`:
@@ -247,8 +250,66 @@ an own `system` (count, spawn area, life, speed, direction, spread, size, colour
 Presets: `embers` (glowing dots rise, sway and fade), `sparks` (fast bright streaks fly up and fall in an arc), `dust`
 (rare warm motes float slowly over the frame), `snow` (falling flakes). A preset brings its own blend mode when the layer keeps `normal`.
 
+An animated `count` param (keys, a wave, a formula or a script, such as one reading a slider layer) makes the count
+follow its value over the loop: a particle is born only if the count at its birth moment admits it, so the layer
+thins by fewer particles, never by fading them, and every particle born lives its life out (the count trails the value
+by about half a life). The value is sampled at every frame of the loop without live inputs, a script frame by frame
+from the loop's start. An own `system` can add a `front`: `direction` (degrees the front travels, `0` right) and
+`speed` (frame heights per second); a particle born farther along it reads the count later, so a returning storm
+sweeps in from the side the front comes from.
+
+```json
+"params": { "count": { "script": "return 1500 * read('blizzard.opacity');", "inputs": ["blizzard.opacity"], "start": 1500 } },
+"system": { "count": 1500, "front": { "direction": 14, "speed": 0.8 } }
+```
+
+`clumps` makes the layer stream in denser and thinner patches instead of evenly, like snow in a gusty blizzard: a
+particle is born only where a noise field of `scale`-sized patches (frame heights, default `0.3`) admits it, and
+`amount` (`0`..`1`, default `0.5`) is how empty the gaps are (about `1 − amount / 2` of the particles are born).
+`carried` (`0`..`4`, default `1`) is the share of the system's `wind` that moves the patches, so a particle the wind
+carries stays in its patch; the patches still come back to themselves after the loop. With `depth.volume` the
+patches are the view's size at every depth, so the planes of a deep layer clump together.
+
+```json
+"system": { "count": 2000, "wind": 1, "clumps": { "scale": 0.6, "amount": 0.9 } }
+```
+
 An own `system` can also move its particles with forces, give them depth and give birth to other particles.
 `sizeExponent` shapes how sizes spread between `size.min` and `size.max` (above `1` most particles are small).
+`brightness` multiplies the colour but not the alpha (above `1` added particles shine brighter, up to `16`).
+`textureMipmaps: false` draws a `texture` sprite from its own pixels at every size, so tiny stars stay sharp points
+instead of soft discs. `spriteScale` stretches every flat sprite along the layer's x and y after its own turn: a
+turning puff of a wide system stays wide.
+`refraction` makes glass drops: each particle shows the frame drawn under it, multiplied by its colour and picture and
+shifted by `normalMap` (red x, green y, blue strength) times `amount` (frame widths and heights per unit, default `1`).
+`lens` makes snow hitting the camera: the particles are hits on the lens, placed in the view at rest (the camera's drift
+and zoom do not move them) and drawn over the frame drawn so far. A particle is born only while `wind` (how hard the
+wind blows towards the camera, keys or a formula of loop time, not a script; default `1`) is above `threshold`
+(default `0.5`); between the threshold and 1 more of the slots are hits, so a stronger gust brings more flakes, not
+brighter ones. With `sceneWind` above 0 and a scene `wind`, the wind towards the camera is `sceneWind` times the scene
+wind's `-z` at the middle of the view (gusts included) instead of `wind`: the hits come with the scene's own gusts
+(`sceneWind` 0 to 50, default `0`). Each hit strikes, sticks as a ragged white flake (its colour) until `stick` of its life (default `0.3`),
+smears along `direction` by `smear` sizes (default `0.5`), then melts into a clear drop that shows the frame under it
+bent through a dome (`bend`, default `1.6`; above 1 the picture in the drop turns upside down) and dries up by the end
+of its life. With `water: true` (rain on glass) every hit is a clear drop for its whole life, with no white flake: it
+is `smear` sizes longer along `direction` (a running drop) and its colour's alpha over the life fades it in and out.
+A water drop is a small fisheye lens: it shows the frame round it, a field several times wider than itself (`bend`
+times 2.5), upside down, so the lights near it come into it as small turned pictures; it has a soft dark edge, a bright
+rim on the side away from the brightest part of the frame round it and a small highlight on the side towards it.
+`sweptBy` names another particles layer (a run down the glass, often a child born where a heavy drop ends): a drop ends
+the moment one of its particles passes over it (their middles nearer than its half width and half the drop's), so a run
+leaves a clean track. Give both layers the same transform (`engine/bench-scenes/look-glass`).
+`refraction`, `depth` and layer effects do not act on lens hits.
+`ribbon` draws a soft band behind each particle instead of its sprite: the path the particle took over its last
+`seconds` (default `0.5`, at most `60`), in `segments` straight pieces (default `32`, 2 to 256), as wide as the particle
+at the head and narrowing to `tailWidth` (a share, default `0`) and fading to `tailAlpha` (default `0`) at the tail. The
+path is the particle's own formula of age, so a ribbon closes the loop with it and does not reach back past the
+particle's birth, except for a particle living the whole loop, whose path goes round. A ribbon takes no `operators`,
+`lens` or `refraction`.
+
+```json
+"ribbon": { "seconds": 1.6, "segments": 48, "tailWidth": 0.15, "tailAlpha": 0 }
+```
 [examples/particle-motion.json](examples/particle-motion.json)
 
 - `operators` act on every particle each moment, in order: `turbulence` (`strength`, `scale`, `cycles` per loop),
@@ -256,6 +317,10 @@ An own `system` can also move its particles with forces, give them depth and giv
   control point `point` with `strength` inside `radius`; a negative strength pushes away) and `speedCap` (`max`).
   A system with operators is moved step by step from each particle's birth (1/120 s); the forces repeat with the
   loop, so the loop still closes. A system without them keeps the exact formula of age.
+  `turbulence` also takes `carried` (`0`..`4`, default `0`): that share of the system's `wind` carries the field, so
+  the swirls travel with the air and wisps curl as they stream instead of averaging the field out (the field still
+  comes back to itself after the loop), and `stir` (default `0`): extra push per unit of the wind's speed where the
+  particle is, so gusts stir harder and wisps lift where the gust front passes.
 
   ```json
   { "type": "turbulence", "strength": 0.2, "scale": 0.15, "cycles": 2 },
@@ -272,15 +337,42 @@ An own `system` can also move its particles with forces, give them depth and giv
   farther), and `perspective` to draw them through the scene camera's `fov` with any camera `type`: the eye sits where
   the layer's plane keeps its size, a particle at depth `z` is scaled by `eye / (eye + z)` towards the middle of the
   view, trails are projected end to end, and one nearer the eye than 5 % of its distance is not drawn. Without
-  `perspective` the depth changes nothing.
+  `perspective` the depth changes nothing. `volume` (with `perspective`) makes the particles fill the view at every
+  depth: each is born and wraps in the spawn area widened by `(eye + z) / eye` around the middle of the view, so far
+  snow is not bunched in the middle (a volume of snow in depth).
 
   ```json
-  "depth": { "z": { "min": 0, "max": 2 }, "speedZ": { "min": -0.1, "max": 0.1 }, "perspective": true },
+  "depth": { "z": { "min": 0, "max": 2 }, "speedZ": { "min": -0.1, "max": 0.1 }, "perspective": true, "volume": true },
   ```
 
+- `wind` (`0`..`4`, default `0`) is how much of the scene's `wind` carries the particles: `1` moves them with the air,
+  more rushes a flat near layer past faster. A preset takes it as the param `wind`. Each particle moves by that share
+  of the wind's integral over its life on top of its own motion (stepped in with the operators when it has them),
+  so trails and `alignToMotion` follow the gusts and the loop still closes. Layers without it do not feel the wind.
+  `windAxes` (`[x, y]`, `0`..`1` each, default `[1, 1]`) keeps that share of the wind along the layer's x and y:
+  `[1, 0]` takes only the wind along the ground, so ground drift streams level whatever the wind's slope.
+  The scene block, [examples/wind.json](examples/wind.json):
+
+  ```json
+  "wind": { "direction": 10, "speed": { "expr": "0.05 + 0.35 * (0.5 + 0.5 * cos(tau * p))", "period": 24 }, "z": -0.05,
+    "gusts": { "strength": 1.2, "swing": 15, "cycles": 3, "front": 0.8 } },
+  ```
+
+  `direction` (degrees, `0` right, `90` down), `speed` (view heights per second) and `z` (along the depth, negative
+  blows towards the camera) are animated values read over the whole loop before the first frame, a script too (without
+  live inputs); their paths start at the Scene row, `camera.wind.speed`. `gusts` swing the wind back and forth with a
+  wave `g` from −1 to 1 made of sines with `cycles`, about `2 · cycles` and `3 · cycles` whole waves per loop (phases
+  from the scene `seed`): the wind is multiplied by `1 + strength · g` (above `1` it blows back for a moment) and
+  turned by up to `swing` degrees. `front` (view heights per second) carries every change of the wind across the frame
+  along its direction, so a gust sweeps in from the wind side; `0` changes everywhere at once.
+
 - `children` give birth to particles of another particles layer with its own `system`: `on` (`follow` along the
-  path, `spawn` at birth or `death` where a particle dies), `layer` and `count`. A layer cannot be its own child, and
-  children cannot loop back to their parent.
+  path, `spawn` at birth or `death` where a particle dies), `layer` and `count` (per birth or death, or per second for
+  `follow`; a fraction is a chance of one more). A layer cannot be its own child, and children cannot loop back to their
+  parent. A child layer emits only from its parents, never on its own (its `count` is not used): each child is born at
+  its parent's moment and place (and depth), its `spawn` shape an offset around that place, and then moves by its own
+  system, so a splash keeps the loop like any particle. Give the child the parent's `depth` and `transform`: the place
+  is taken in the child layer's units.
 
   ```json
   "children": [ { "on": "death", "layer": "ash", "count": 3 } ]
@@ -437,7 +529,7 @@ whenever time goes back by a frame or more, at the loop's seam too. So a value c
 `frameTime`); a counter that only grows does not, and the check warns (`script.loop-seam`).
 
 Scripts run sandboxed in strict mode: no files, network, timers, modules, `eval` or .NET, and limits on statements,
-memory and call depth per run, plus a time budget per frame. A script that throws or hits a limit keeps its `start` value and is not
+memory and call depth per run, plus a time budget per live frame (a rendered video waits for its scripts). A script that throws or hits a limit keeps its `start` value and is not
 run again; the scene still draws, and the problem is one warning (`script.error`, `script.limit`, `script.missing`,
 `script.result` for a value of the wrong shape, `script.cycle` when two scripts read each other, `script.budget`).
 
@@ -459,6 +551,16 @@ A layer's `effects` apply to the layer's own pixels, in order, before it blends 
 `mask` (a grey picture of the same frame: white takes the effect, black keeps the layer as it was) limits where the
 effect acts, and `textures` hands it extra pictures (`texture1`, `texture2` in the manifest). Masks and textures are
 scene assets. [examples/effects.json](examples/effects.json)
+
+A texture can also be another picture layer of the scene, `"layer:<id>"`: that layer's picture with its own effects,
+laid over this layer's picture the way a file would be. Only its picture and effects count, not its place, visibility,
+opacity or blending, so it is usually a hidden layer. A face takes its eyes this way from an eye layer that tints and
+moves them (the WE import makes such layers for WE's layer composites). The check refuses a layer that is not a
+picture, the layer itself, loops and chains deeper than 4.
+
+```json
+{ "id": "glow", "effect": "blend", "textures": ["layer:valley-warm"], "params": { "mode": "screen", "amount": 0.3 } }
+```
 
 ```json
 { "id": "wind", "effect": "sway", "mask": "assets/valley.mask.png", "params": { "strength": 0.004, "cycles": 3 } },
@@ -490,7 +592,7 @@ scene assets. [examples/effects.json](examples/effects.json)
 | `perspective` | Pins an area of the frame to four corners, as on a wall or a screen. |
 | `ripple` | Rings on water or running waves distort the layer. |
 | `shine` | Bright parts shine as a slowly turning star of rays. |
-| `sway` | Leaves, hair and cloth sway in the wind. |
+| `sway` | Leaves, hair and cloth sway in the wind, water flows one way, or (`orbit`) the picture moves along and across at speeds of its own. |
 | `tint` | Recolours the layer with one colour and a blend mode. |
 | `vhs` | An old video tape: tear band, colour split, row jumps, grain, dropouts. |
 | `vignette` | Darkens the frame edges. |
@@ -519,7 +621,7 @@ layer). The effect's `params` are the shader's named inputs. [examples/shader-ef
 The file is HLSL (Shader Model 5) with one function, `float4 Shade(float2 uv)`: `uv` is 0..1 over the frame (the
 layer's pixels are already at their place), the result is a colour with premultiplied alpha. Besides its params,
 which it reads like a built-in effect (`EffectParams e = LoadParams();` then `e.speed`; numbers are `float`, vectors
-`float2`, colours `float4`, switches `bool`; at most 10, no text), a scene shader reads these names:
+`float2`, colours `float4`, switches `bool`; at most 16, no text), a scene shader reads these names:
 
 | Name | What |
 |---|---|
@@ -529,11 +631,14 @@ which it reads like a built-in effect (`EffectParams e = LoadParams();` then `e.
 | `TargetSize` | the frame size in pixels |
 | `Cursor` | the cursor in `uv` (0.5, 0.5 in the middle) |
 | `Audio`, `AudioBand(i)` | sound: bass, mid, treble and level 0..1; the spectrum in 16 bands, low to high |
+| `Daytime` | the local time of day as a share of the day, 0..1 (0.5 is noon) |
+| `LayerUv(uv)`, `FrameUv(p)`, `LayerSize` | the layer's place: `uv` in the layer's own 0..1 (its picture's top left is 0, 0, with its offset, scale, rotation and the camera), back to `uv`, and the layer's size on the frame in pixels; a layer without a picture (a fill, a group) is the whole frame |
 
 Pictures and `"$layer"` are laid over the layer's own pixels, as an effect mask is (on a layer without a picture of its
 own a picture is stretched over the frame). A `material` runs first, before the layer's effects, and draws only over
-the picture's place. The cursor and sound are live on the desktop when the scene's `live` block turns them on;
-in the Dota video the cursor is in the middle and there is silence.
+the picture's place; so does a `shader` effect on a picture, unless it has a `mask` of its own. The cursor and sound
+are live on the desktop when the scene's `live` block turns them on, and `Daytime` follows the clock there; in the Dota
+video the cursor is in the middle, there is silence and it is noon.
 
 What happens where the shader cannot run is a report row and `fallback`: a missing file (`render.shader-missing`),
 params the shader cannot read (`render.shader-params`), a compile error (`render.shader-compile`, with the file's
@@ -552,12 +657,13 @@ optional `min`, `max` and `step` for numbers. [examples/exposed-sliders.json](ex
 
 Paths start at a layer id or a scene block:
 
-- `<layer>.opacity`, `<layer>.transform.offset|scale|rotation`, `<layer>.color`, `<layer>.params.<name>`,
+- `<layer>.opacity`, `<layer>.transform.offset|scale|scaleY|rotation`, `<layer>.color`, `<layer>.params.<name>`,
   `<layer>.effects.<effect id>.params.<name>`
 - gradients: `<layer>.angle`, `<layer>.stops.<n>.color`; pictures: `<layer>.depthMap.amount|focus|zoom`,
   `<layer>.warp.pins.<n>.offset`, `<layer>.warp.waves.<n>.amp`, `<layer>.lit.shadows|specular`; models: `<layer>.size`,
   `<layer>.rotation.x|y|z`, `<layer>.material.<field>`
-- `camera.zoom`, `camera.drift.x|y`, `camera.fov`, `camera.effects.<effect id>.params.<name>` (scene effects)
+- `camera.zoom`, `camera.drift.x|y`, `camera.fov`, `camera.effects.<effect id>.params.<name>` (scene effects),
+  `camera.wind.direction|speed|z` (scene wind)
 - `render.exposure`, `render.bloom.strength`, `render.atmosphere.color|density`, `render.depthOfField.focus`
 - `lighting.ambient`, `lighting.lights.<light id>.color|intensity|position|height|radius|angle|elevation`
 
