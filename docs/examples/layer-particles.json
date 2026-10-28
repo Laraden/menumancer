@@ -16,6 +16,13 @@
         "spread": 20,
         "size": { "min": 0.01, "max": 0.02 },
         "color": [ { "at": 0, "color": "#7ae0ff" }, { "at": 1, "color": "#7ae0ff00" } ]
-      } }
+      } },
+    { "id": "blizzard", "type": "color", "color": "#ffffff", "visible": false,
+      "opacity": { "keys": [ { "t": 0, "v": 1 }, { "t": 4, "v": 1 }, { "t": 6, "v": 0.1 }, { "t": 10, "v": 0.1 } ], "period": 12 } },
+    { "id": "snow", "type": "particles", "depth": 0.9,
+      "params": { "count": { "script": "return 1500 * read('blizzard.opacity');", "inputs": ["blizzard.opacity"], "start": 1500 } },
+      "system": { "count": 1500, "front": { "direction": 14, "speed": 0.8 } } },
+    { "id": "gusts", "type": "particles", "depth": 0.7,
+      "system": { "count": 2000, "wind": 1, "clumps": { "scale": 0.6, "amount": 0.9 } } }
   ]
 }

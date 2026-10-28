@@ -34,7 +34,7 @@ Your own animated background and music in the Dota 2 main menu.<br>
 4. **Create** → pick a video → pick the loop → music → **Build**. With **Install into Dota right away** ticked, the background goes into the game when it's ready. Or open **Scenes** and install a template: no video needed.
 5. Start Dota. Close it before installing or removing a background.
 
-**English voice in Dota?** Add the launch option `-lv` (Steam → Dota 2 → Properties → Launch Options). Dota reads the background from its voice-language folder, and English voices don't have one, so the app uses the low-violence folder. It's Valve's official low-violence mode: blood gets milder, nothing else changes. Russian, Korean and Simplified Chinese voices need nothing.
+**English voice in Dota?** Nothing to do. Dota reads the background from the folder of its voice language, and English has no folder of its own. So the app puts the background into a voice folder that has no voice files (with Steam in English, usually the Russian one) and sets Dota's voice to it. There are no voice files there, so heroes still speak English, and the UI language stays the same. If you change the voice in Dota settings later, install the background again. Up to 1.3.1 the app used the `-lv` launch option, but Dota no longer reads that folder, so you can remove `-lv`.
 
 ## Guides
 

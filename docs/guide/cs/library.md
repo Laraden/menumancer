@@ -18,7 +18,7 @@ Najeďte na kartu: „Nainstalovat“ dá pozadí do Doty, „Podrobnosti“ ote
 
 ## 4. Nainstalovat nebo odebrat
 
-„Nainstalovat“ dá pozadí do Doty, „Odebrat z Doty“ vrátí výchozí. Pokud hra běží, restartujte ji.
+„Nainstalovat“ dá pozadí do Doty, „Odebrat z Doty“ vrátí výchozí. Pokud hra běží, restartujte ji. Po aktualizaci nebo přeinstalaci Doty je potřeba pozadí nainstalovat znovu: stačí otevřít program, udělá to sám. Pokud pozadí v Dotě chybí, klikněte znovu na „Nainstalovat“, a pokud po velké aktualizaci nefunguje, počkejte na aktualizaci programu.
 
 ## 5. Co je vidět v menu
 

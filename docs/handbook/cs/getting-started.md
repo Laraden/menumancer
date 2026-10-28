@@ -36,7 +36,7 @@ Aplikace najde složku hry sama: stavový řádek dole ukáže **Dota nalezena**
 Před první instalací se aplikace zeptá, jaký dabing Dota používá. Dota čte pozadí menu ze složky svého dabingu, takže se to musí shodovat. Dabing se volí ve Steamu: **Dota 2 → Vlastnosti → Jazyk**. Aplikace ho zjistí sama: zkontrolujte ho a pokračujte.
 
 - **Ruský, korejský nebo čínský dabing:** nic dalšího není potřeba.
-- **Anglický dabing:** angličtina nemá v Dotě vlastní složku, a tak jde pozadí do složky režimu nízkého násilí. Přidejte parametr spuštění `-lv` v **Steam → Dota 2 → Vlastnosti → Parametry spuštění**. Je to oficiální režim Valve: krev ve hře bude mírnější, nic jiného se nemění.
+- **Anglický dabing:** ani tady není nic potřeba. Angličtina nemá v Dotě vlastní složku, a tak aplikace dá pozadí do složky dabingu bez hlasů a nastaví Dotě tento dabing. Hrdinové dál mluví anglicky a jazyk rozhraní se nemění. Pokud později změníte dabing v nastavení Doty, nainstalujte pozadí znovu. Parametr spuštění `-lv`, který chtěly starší verze, už není potřeba: můžete ho odebrat.
 
 Později to změníte v **Nastavení → Dota 2 → Složka dabingu pro pozadí**.
 

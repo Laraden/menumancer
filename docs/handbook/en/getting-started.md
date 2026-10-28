@@ -36,7 +36,7 @@ The app finds the game folder by itself: the status bar at the bottom says **Dot
 Before your first install, the app asks which voice language Dota uses. Dota reads the menu background from the folder of its voice language, so this has to match. The voice language is set in Steam: **Dota 2 → Properties → Language**. The app detects it; check it and continue.
 
 - **Russian, Korean or Simplified Chinese voices:** nothing else to do.
-- **English voices:** Dota has no separate folder for English, so the background goes into the low-violence folder. Add the launch option `-lv` in **Steam → Dota 2 → Properties → Launch Options**. It is Valve's official low-violence mode: blood in the game becomes milder, nothing else changes.
+- **English voices:** nothing to do either. Dota has no separate folder for English, so the app puts the background into a voice folder with no voice files and sets Dota's voice to it. Heroes still speak English, and the UI language stays the same. If you change the voice in Dota settings later, install the background again. The `-lv` launch option that older versions asked for is no longer needed: you can remove it.
 
 You can change this later in **Settings → Dota 2 → Voice folder for the background**.
 

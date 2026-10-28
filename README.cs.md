@@ -34,7 +34,7 @@ Vlastní živé pozadí a hudba v hlavním menu Dota 2.<br>
 4. **Vytvořit** → vyberte video → smyčku → hudbu → **Sestavit**. Se zaškrtnutým **Hned nainstalovat do Doty** jde pozadí do hry, jakmile je hotové. Nebo otevřete **Scény** a nainstalujte šablonu: video není potřeba.
 5. Spusťte Dotu. Před instalací a odebráním pozadí musí být Dota zavřená.
 
-**Máte v Dotě anglický dabing?** Přidejte parametr spuštění `-lv` (Steam → Dota 2 → Vlastnosti → Parametry spuštění). Dota čte pozadí ze složky svého dabingu, angličtina žádnou nemá, a tak aplikace použije složku režimu nízkého násilí. Je to oficiální režim Valve: krev ve hře bude mírnější, nic jiného se nemění. Ruský, korejský a čínský dabing nic dalšího nepotřebují.
+**Máte v Dotě anglický dabing?** Nic dělat nemusíte. Dota čte pozadí ze složky svého dabingu a angličtina vlastní složku nemá. Aplikace proto dá pozadí do složky dabingu, ve které nejsou hlasy (se Steamem v angličtině obvykle do ruské), a nastaví Dotě tento dabing. Hlasy tam nejsou, takže hrdinové dál mluví anglicky a jazyk rozhraní se nemění. Pokud později změníte dabing v nastavení Doty, nainstalujte pozadí znovu. Do verze 1.3.1 aplikace chtěla parametr spuštění `-lv`, ale tuto složku už Dota nečte, takže `-lv` můžete odebrat.
 
 ## Návody
 

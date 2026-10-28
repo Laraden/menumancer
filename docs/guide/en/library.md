@@ -18,7 +18,7 @@ Hover over a card: “Install” puts the background into Dota, “More details�
 
 ## 4. Install or remove
 
-“Install” puts the background into Dota, “Remove from Dota” brings back the default one. If the game is running, restart it.
+“Install” puts the background into Dota, “Remove from Dota” brings back the default one. If the game is running, restart it. After a Dota patch or reinstall, the background has to be installed again: just open the app and it does this by itself. If the background is gone from Dota, press Install again, and if it doesn’t work after a big patch, wait for an app update.
 
 ## 5. What the menu shows
 

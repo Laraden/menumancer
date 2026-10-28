@@ -1,0 +1,19 @@
+{
+  "format": "menumancer.scene",
+  "version": 3,
+  "title": { "en": "Shared wind with gusts" },
+  "loop": { "seconds": 24, "fps": 30 },
+  "wind": { "direction": 10, "speed": { "expr": "0.05 + 0.35 * (0.5 + 0.5 * cos(tau * p))", "period": 24 }, "z": -0.05,
+    "gusts": { "strength": 1.2, "swing": 15, "cycles": 3, "front": 0.8 } },
+  "layers": [
+    { "id": "bg", "type": "color", "color": "#0d1424" },
+    { "id": "snow", "type": "particles",
+      "system": { "count": 400, "wrap": true, "life": { "min": 3, "max": 5 }, "speed": { "min": 0.02, "max": 0.05 }, "direction": 90,
+        "size": { "min": 0.002, "max": 0.004 }, "wind": 1 } },
+    { "id": "smoke", "type": "particles",
+      "system": { "count": 30, "spawn": { "kind": "point", "center": [-0.3, 0.3] }, "life": { "min": 3, "max": 5 },
+        "speed": { "min": 0.03, "max": 0.05 }, "direction": -90, "drag": 0.5, "size": { "min": 0.02, "max": 0.04 },
+        "wind": 0.6 } },
+    { "id": "flakes", "type": "particles", "preset": "snow", "params": { "count": 80, "wind": 1 } }
+  ]
+}

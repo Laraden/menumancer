@@ -6,7 +6,7 @@ Zkontrolujte postupně:
 
 1. **Byla Dota během instalace otevřená?** Restartujte hru. Dota čte soubory menu jen při spuštění.
 2. **Sedí složka dabingu?** Dota čte pozadí ze složky svého dabingu. Porovnejte **Steam → Dota 2 → Vlastnosti → Jazyk** s **Nastavení → Dota 2 → Složka dabingu pro pozadí**.
-3. **Anglický dabing potřebuje `-lv`.** Přidejte ho v **Steam → Dota 2 → Vlastnosti → Parametry spuštění** a restartujte Dotu. Je to oficiální režim nízkého násilí od Valve, mění se jen krev.
+3. **Anglický dabing: nezměnil se dabing Doty?** U angličtiny aplikace nastaví Dotě dabing složky bez hlasů. Pokud jste potom dabing v nastavení Doty změnili, nainstalujte pozadí znovu. `-lv` už není potřeba.
 4. **Je pozadí nainstalované?** V **Knihovně** má pozadí, které je právě ve hře, zlatý rámeček a štítek **Nainstalováno**. Pokud takové není, klikněte na **Nainstalovat** u toho, které chcete.
 
 ## „Locally modified game files detected“ nebo zablokované hledání zápasu

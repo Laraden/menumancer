@@ -6,7 +6,7 @@ Check these in order:
 
 1. **Was Dota open during the install?** Restart the game. Dota reads the menu files only at startup.
 2. **Is the voice folder right?** Dota reads the background from the folder of its voice language. Compare **Steam → Dota 2 → Properties → Language** with **Settings → Dota 2 → Voice folder for the background**.
-3. **English voices need `-lv`.** Add it in **Steam → Dota 2 → Properties → Launch Options** and restart Dota. It is Valve's official low-violence mode; only blood gets milder.
+3. **English voices: was Dota's voice changed?** With English the app sets Dota's voice to a folder with no voice files. If you changed the voice in Dota settings after that, install the background again. `-lv` is no longer needed.
 4. **Is the background installed?** In **Library** the background in the game has a gold frame and the **Installed** badge. If none has, click **Install** on the one you want.
 
 ## “Locally modified game files detected”, or matchmaking is blocked
