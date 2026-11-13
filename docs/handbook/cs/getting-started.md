@@ -21,7 +21,7 @@ Windows může ukázat „Systém Windows ochránil váš počítač“. Aplikac
 
 ## 3. Jazyk a smlouva
 
-První obrazovka se zeptá na jazyk: čeština, angličtina nebo ruština. Později ho změníte v **Nastavení → Knihovna a aplikace → Jazyk aplikace**. Potom si přečtěte a přijměte licenční smlouvu. Následuje krátká prohlídka obrazovek; znovu ji spustíte v **O aplikaci → Spustit prohlídku znovu**.
+První obrazovka se zeptá na jazyk: čeština, angličtina nebo ruština. Později ho změníte v **Nastavení → Knihovna a aplikace → Jazyk aplikace**. Potom si přečtěte a přijměte licenční smlouvu. Třetí obrazovka ukáže, jestli se našla Dota a FFmpeg: co chybí, opravíte hned tam jedním tlačítkem (**Vybrat složku** nebo **Nainstalovat**), nebo později v **Nastavení**. **Začít** otevře aplikaci a následuje krátká prohlídka obrazovek; znovu ji spustíte v **O aplikaci → Spustit prohlídku znovu**.
 
 ## 4. FFmpeg
 
@@ -52,7 +52,7 @@ Pokračujte na [První pozadí](first-background.md). Nebo otevřete **Scény** 
 
 **Přenosný režim:** vytvořte vedle exe prázdnou složku `Menumancer-data`. Aplikace pak ukládá všechno do ní a nic nezapisuje do Dokumentů ani AppData, takže ji můžete nosit na flashce.
 
-**Odinstalace:** klikněte na **Odebrat mod z Doty** v **Nastavení**, zavřete aplikaci a smažte exe a tři složky výše.
+**Odinstalace:** klikněte na **Vrátit čistou Dotu** v **Nastavení**, zavřete aplikaci a smažte exe a tři složky výše.
 
 ---
 

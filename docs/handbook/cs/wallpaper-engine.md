@@ -31,7 +31,7 @@ Engine je nový a s každou verzí se zlepšuje. Scéna může vypadat trochu ji
 Tapety z Workshopu patří jejich autorům a mnohé jsou vytvořené z cizích obrázků.
 
 - **Pro sebe, na vlastním PC** je v pořádku udělat pozadí menu z tapety, kterou odebíráte.
-- **Nepředávejte samotné video.** Aplikace video z Workshopu nikdy nedá do ZIPu. Ke sdílení použijte **Sdílet preset**: kamarád si přihlásí odběr stejné tapety a jeho Menumancer sestaví stejné pozadí. Viz [Sdílení](sharing.md).
+- **Nepředávejte samotné video.** Aplikace video z Workshopu nikdy nedá do ZIPu. Ke sdílení použijte **Sdílet pozadí**: kamarád si přihlásí odběr stejné tapety a jeho Menumancer sestaví stejné pozadí. Viz [Sdílení](sharing.md).
 - **Nezveřejňujte výsledek**, například balík pozadí ke stažení, bez svolení autora.
 
 ---

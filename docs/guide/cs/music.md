@@ -10,13 +10,17 @@ Zatím tu žádné playlisty nejsou: vytvořte první a přidejte do něj své s
 
 ## 2. Playlisty
 
-Seznam vašich playlistů. „+ Nový playlist“ vytvoří další.
+Seznam vašich playlistů. „+ Nový playlist“ nahoře na stránce vytvoří další.
 
 ## 3. Playlist
 
-Název playlistu a ve kterých pozadích se používá. Změny se do Doty dostanou, až se pozadí znovu sestaví.
+Název playlistu, kolik má skladeb a ve kterých pozadích se používá. Úpravy se do playlistu ukládají hned.
 
-## 4. Skladby
+## 4. Stará verze v pozadích
+
+Pozadí sestavená před úpravou playlistu hrají v Dotě staré skladby. „Znovu sestavit pozadí“ jim aktualizuje hudbu přes frontu úloh, video se nepřekódovává.
+
+## 5. Skladby
 
 „+ Přidat soubory“ nebo „+ Složku“, případně přetáhněte zvuk do seznamu. U každé skladby můžete změnit pořadí, hlasitost, začátek a spoj s další.
 

@@ -12,7 +12,7 @@ Upřímně: nikdo vám nemůže slíbit, že ne. Tohle víme.
 
 ## Co přesně mění?
 
-Jen hlavní menu: video na pozadí, hudbu menu a pokud používáte **Úpravu menu**, vzhled některých prvků menu. V zápase se nic nemění. Co prodává Valve, se nikdy neskrývá ani nenahrazuje: nasazený hudební balíček hraje, Dota Plus, střepy i obchod zůstávají. Okno přijetí zápasu aplikace nikdy nemění.
+Jen hlavní menu: video na pozadí, hudbu menu a pokud používáte stránku **Menu Doty**, úpravu některých prvků menu. V zápase se nic nemění. Co prodává Valve, se nikdy neskrývá ani nenahrazuje: nasazený hudební balíček hraje, Dota Plus, střepy i obchod zůstávají. Okno přijetí zápasu aplikace nikdy nemění.
 
 ## Uvidí moje pozadí ostatní hráči?
 
@@ -30,14 +30,14 @@ Zdarma, bez reklam a bez placených funkcí. Kód je uzavřený, protože je to 
 
 Žádná telemetrie ani účet. Na internet aplikace chodí, aby:
 
-- zkontrolovala aktualizace na GitHubu (vypnout to jde v **O aplikaci**);
+- zkontrolovala aktualizace na GitHubu (vypnout to jde v **Nastavení → Aktualizace**);
 - nainstalovala FFmpeg přes winget, když kliknete na **Nainstalovat**;
 - jednou stáhla neuronovou síť pro hloubku, když poprvé zapnete **Hloubka** ve **Scénách**;
 - otevřela odkazy, na které kliknete sami (stránky Steamu, GitHub, podpora).
 
 ## Jak fungují aktualizace?
 
-Aplikace hledá novou verzi na GitHubu a nainstaluje ji jen po kliknutí na **Aktualizovat**. Každá aktualizace je podepsaná: aplikace ověří podpis a kontrolní součet, než cokoli nahradí. **Testovací verze** v **O aplikaci** nabízejí verze, které se ještě testují.
+Aplikace hledá novou verzi na GitHubu a nainstaluje ji jen po kliknutí na **Aktualizovat**. Každá aktualizace je podepsaná: aplikace ověří podpis a kontrolní součet, než cokoli nahradí. **Testovací verze** v **Nastavení → Aktualizace** nabízejí verze, které se ještě testují.
 
 ## Mac, Linux, Steam Deck?
 
@@ -53,7 +53,7 @@ Pro sebe ano. Předat samotné video dál je jiná věc, viz [Sdílení](sharing
 
 ## Jak všechno odstranit?
 
-**Nastavení → Odebrat mod z Doty**, zavřete aplikaci, smažte exe a složky `Dokumenty\Menumancer`, `%APPDATA%\Menumancer` a `%LOCALAPPDATA%\Menumancer`.
+**Nastavení → Vrátit čistou Dotu**, zavřete aplikaci, smažte exe a složky `Dokumenty\Menumancer`, `%APPDATA%\Menumancer` a `%LOCALAPPDATA%\Menumancer`.
 
 ---
 

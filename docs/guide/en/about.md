@@ -1,24 +1,24 @@
 # About
 
-Version, updates, change history, all guides and how to support development.
+Version, updates, guides, reporting a problem, supporting development and the change history.
 
 ![About](images/about.png)
 
 ## 1. Updates
 
-The app checks for updates on its own at every start and every hour while it is open, and installs them only when you click. “Pre-release versions” offers what's still being tested.
+The app version and whether a new one is out. “Check now” asks GitHub, and an update is installed only when you click. Automatic checks and pre-release versions: “Update settings” takes you to Settings.
 
-## 2. Version history
-
-What changed in each version. Big updates have “Watch the presentation”.
-
-## 3. How to use
+## 2. How to use
 
 A tour of the app, a video guide and a guide for every section. The same guide opens with the “?” button next to the title of any section.
 
-## 4. Support development
+## 3. Support development
 
 The app is free and has no ads. You can support the author here.
+
+## 4. Version history
+
+What changed in each version. Big updates have “Watch the presentation”.
 
 ---
 

@@ -1,24 +1,24 @@
 # O aplikaci
 
-Verze, aktualizace, historie změn, všechny návody a jak podpořit vývoj.
+Verze, aktualizace, návody, nahlášení problému, podpora vývoje a historie změn.
 
 ![O aplikaci](images/about.png)
 
 ## 1. Aktualizace
 
-Aplikace sama hledá aktualizace při každém spuštění a každou hodinu, dokud je otevřená, a instaluje je jen po vašem kliknutí. „Testovací verze“ nabízejí to, co se ještě testuje.
+Verze aplikace a zda vyšla nová. „Zkontrolovat teď“ se zeptá GitHubu a aktualizace se instaluje jen po vašem kliknutí. Automatická kontrola a zkušební verze: „Nastavení aktualizací“ vede do Nastavení.
 
-## 2. Historie verzí
-
-Co se změnilo v každé verzi. Velké aktualizace mají „Přehrát prezentaci“.
-
-## 3. Jak používat
+## 2. Jak používat
 
 Prohlídka aplikace, videonávod a návod ke každé sekci. Stejný návod otevře tlačítko „?“ u nadpisu kterékoli sekce.
 
-## 4. Podpořit vývoj
+## 3. Podpořit vývoj
 
 Aplikace je zdarma a bez reklam. Tady můžete podpořit autora.
+
+## 4. Historie verzí
+
+Co se změnilo v každé verzi. Velké aktualizace mají „Přehrát prezentaci“.
 
 ---
 

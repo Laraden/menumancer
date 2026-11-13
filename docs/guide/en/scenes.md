@@ -30,7 +30,7 @@ Colors, brightness, the amount of snow or embers: every template has its own. Th
 
 ## 7. Install into Dota
 
-“Install into Dota” in the bar above the preview renders the scene to a video for your monitor, builds the background and installs it into Dota; progress shows right on the button, and you can leave the page. The ▾ next to it opens the background name and frame rate: 30 is optimal and recommended, 60 is for good PCs. Quality and “Library only” are under “Advanced”.
+“Install into Dota” in the bar above the preview renders the scene to a video for your monitor, builds the background and installs it into Dota; progress shows right on the button, and you can leave the page. The ▾ next to it opens the background name and frame rate. Frame rate and quality are the same as in Create and start from Settings → New backgrounds; changes here apply to this background only. Quality and “Library only” are under “Advanced”.
 
 ## 8. Editor
 

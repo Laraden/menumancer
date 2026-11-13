@@ -14,7 +14,7 @@ Check these in order:
 This can happen after a Dota update.
 
 1. Close Dota.
-2. Click **Remove from Dota** on the background's card, or **Remove all mod files** in **Settings**.
+2. Click **Remove from Dota** on the **In Dota now** card at the top of the **Library**, in the background's details, or **Back to clean Dota** in **Settings**.
 3. If the message stays: **Steam → Dota 2 → Properties → Installed Files → Verify integrity of game files**.
 
 Then [tell us](https://github.com/Laraden/menumancer/issues/new/choose) which Dota update it was. The app never overwrites Valve's files, so removing its own file always brings the stock menu back.
@@ -33,8 +33,8 @@ The app can't change game files while the game is open. Close Dota and try again
 
 ## The menu lags or the PC gets loud
 
-- Use **30 fps** (the default). 60 fps doubles the decoding load. Set it in **Settings → Video** for new backgrounds, or under **▾** when installing a scene.
-- Turn the quality down a step in **Settings → Video**.
+- Use **30 fps** (the default). 60 fps doubles the decoding load. Set it in **Settings → New backgrounds** for new backgrounds, or under **▾** when installing a scene.
+- Turn the quality down a step in **Settings → New backgrounds**.
 - If the menu still lags, try the background with **Remove from Dota** to see whether it's the cause, and [tell us](https://github.com/Laraden/menumancer/issues/new/choose) your PC's graphics card and CPU.
 
 ## The loop has a visible jump

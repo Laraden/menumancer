@@ -31,7 +31,7 @@ The engine is new and improving with every version. A scene can look slightly di
 Workshop wallpapers belong to their authors, and many are built from other people's art.
 
 - **For yourself, on your own PC**, making a menu background from a wallpaper you're subscribed to is fine.
-- **Don't pass the video on.** The app never puts a Workshop video into a ZIP. To share, use **Share preset**: your friend subscribes to the same wallpaper and their Menumancer builds the same background. See [Sharing](sharing.md).
+- **Don't pass the video on.** The app never puts a Workshop video into a ZIP. To share, use **Share background**: your friend subscribes to the same wallpaper and their Menumancer builds the same background. See [Sharing](sharing.md).
 - **Don't publish the result**, such as a pack of backgrounds for download, without the author's permission.
 
 ---

@@ -14,7 +14,7 @@ Zkontrolujte postupně:
 Může se to stát po aktualizaci Doty.
 
 1. Zavřete Dotu.
-2. Klikněte na **Odebrat z Doty** na kartě pozadí nebo na **Odebrat mod z Doty** v **Nastavení**.
+2. Klikněte na **Odebrat z Doty** na kartě **Teď v Dotě** nahoře v **Knihovně**, v podrobnostech pozadí nebo na **Vrátit čistou Dotu** v **Nastavení**.
 3. Pokud hláška zůstane: **Steam → Dota 2 → Vlastnosti → Nainstalované soubory → Ověřit integritu herních souborů**.
 
 Pak nám [napište](https://github.com/Laraden/menumancer/issues/new/choose), po které aktualizaci Doty se to stalo. Aplikace nikdy nepřepisuje soubory Valve, takže odebrání jejího souboru vždy vrátí původní menu.
@@ -33,8 +33,8 @@ Dokud je hra otevřená, aplikace nemůže měnit její soubory. Zavřete Dotu a
 
 ## Menu se seká nebo je PC hlučné
 
-- Používejte **30 snímků za sekundu** (výchozí). 60 zdvojnásobí zátěž při dekódování. Pro nová pozadí to nastavíte v **Nastavení → Video**, u scény přes **▾** při instalaci.
-- Snižte kvalitu o stupeň v **Nastavení → Video**.
+- Používejte **30 snímků za sekundu** (výchozí). 60 zdvojnásobí zátěž při dekódování. Pro nová pozadí to nastavíte v **Nastavení → Nová pozadí**, u scény přes **▾** při instalaci.
+- Snižte kvalitu o stupeň v **Nastavení → Nová pozadí**.
 - Pokud se menu seká dál, odeberte pozadí přes **Odebrat z Doty**, abyste zjistili, jestli je příčinou, a [napište nám](https://github.com/Laraden/menumancer/issues/new/choose), jakou máte grafickou kartu a procesor.
 
 ## Na spoji smyčky je vidět skok

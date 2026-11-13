@@ -12,7 +12,7 @@ Honest answer: nobody can promise you won't. Here is what we know.
 
 ## What exactly does it change?
 
-Only the main menu: the background video, the menu music and, if you use **Menu customization**, the look of some menu elements. Nothing changes in a match. Things Valve sells are never hidden or replaced: an equipped music pack plays, Dota Plus, shards and the shop stay as they are. The accept-match window is never touched.
+Only the main menu: the background video, the menu music and, if you use the **Dota menu** page, the design of some menu elements. Nothing changes in a match. Things Valve sells are never hidden or replaced: an equipped music pack plays, Dota Plus, shards and the shop stay as they are. The accept-match window is never touched.
 
 ## Will other players see my background?
 
@@ -30,14 +30,14 @@ It's free, with no ads and no paid features. The source is closed because it's a
 
 There's no telemetry or account. The app goes online for:
 
-- update checks on GitHub (you can turn them off in **About**);
+- update checks on GitHub (you can turn them off in **Settings → Updates**);
 - installing FFmpeg through winget, when you click **Install**;
 - downloading the depth network once, when you first use **Depth** in **Scenes**;
 - links you open yourself (Steam pages, GitHub, support).
 
 ## How do updates work?
 
-The app checks GitHub for a new version and installs it only when you click **Update**. Every update is signed: the app verifies the signature and checksum before replacing anything. **Pre-release versions** in **About** offers versions that are still being tested.
+The app checks GitHub for a new version and installs it only when you click **Update**. Every update is signed: the app verifies the signature and checksum before replacing anything. **Pre-release versions** in **Settings → Updates** offers versions that are still being tested.
 
 ## Mac, Linux, Steam Deck?
 
@@ -53,7 +53,7 @@ For yourself, yes. Passing the video on is another matter; see [Sharing](sharing
 
 ## How do I remove everything?
 
-**Settings → Remove all mod files**, close the app, delete the exe and the folders `Documents\Menumancer`, `%APPDATA%\Menumancer` and `%LOCALAPPDATA%\Menumancer`.
+**Settings → Back to clean Dota**, close the app, delete the exe and the folders `Documents\Menumancer`, `%APPDATA%\Menumancer` and `%LOCALAPPDATA%\Menumancer`.
 
 ---
 

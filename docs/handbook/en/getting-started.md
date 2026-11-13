@@ -21,7 +21,7 @@ Windows may show “Windows protected your PC”. The app doesn't have a paid pu
 
 ## 3. Language and agreement
 
-The first screen asks for your language: English, Russian or Czech. You can change it later in **Settings → Library and app → App language**. Then read and accept the license agreement. A short tour of the screens follows; you can open it again in **About → Show the tour again**.
+The first screen asks for your language: English, Russian or Czech. You can change it later in **Settings → Library and app → App language**. Then read and accept the license agreement. The third screen shows whether Dota and FFmpeg are found: fix what is missing right there with one button (**Choose folder** or **Install**), or later in **Settings**. **Start** opens the app, and a short tour of the screens follows; you can open it again in **About → Show the tour again**.
 
 ## 4. FFmpeg
 
@@ -52,7 +52,7 @@ Go on to [Your first background](first-background.md). Or open **Scenes** and in
 
 **Portable mode:** create an empty folder `Menumancer-data` next to the exe. The app then keeps everything there and writes nothing to Documents or AppData, so you can carry it on a USB stick.
 
-**Uninstall:** press **Remove all mod files** in **Settings**, close the app, then delete the exe and the three folders above.
+**Uninstall:** press **Back to clean Dota** in **Settings**, close the app, then delete the exe and the three folders above.
 
 ---
 

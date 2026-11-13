@@ -6,6 +6,14 @@ Full notes for every version: [Releases](https://github.com/Laraden/menumancer/r
 
 <!-- Add each new version here and in CHANGELOG.ru.md. -->
 
+## 1.4.0
+
+A new, calmer interface across the whole app: sections in two groups, calm colours, a page glow in the colours of the background in
+Dota, and the same words everywhere. The Library has an “In Dota now” card that changes what the menu shows and the treasure button with
+one rebuild, Create has source tiles and “Build right away”, video gets a Look tab, Cinema is back in “What the menu shows” with buttons
+for friends and events, playlists can rebuild their backgrounds, Settings holds the update-check switch and “Back to clean Dota”, and the first
+start checks Dota and FFmpeg. The voice folder is found correctly when Dota has its own voice language. License agreement 1.2.
+
 ## 1.3.2
 
 Fixes for backgrounds that came out black or didn't show. English voice works without `-lv` (the app sets Dota's voice to a folder

@@ -10,13 +10,17 @@ There are no playlists yet: create the first one and add your own tracks to it.
 
 ## 2. Playlists
 
-Your playlists. “+ New playlist” creates another one.
+Your playlists. “+ New playlist” at the top of the page creates another one.
 
 ## 3. Playlist
 
-The playlist's name and which backgrounds use it. Changes reach Dota once the background is rebuilt.
+The playlist's name, how many tracks it has and which backgrounds use it. Edits are saved to the playlist right away.
 
-## 4. Tracks
+## 4. Old version in backgrounds
+
+Backgrounds built before you edited the playlist still play the old tracks in Dota. “Rebuild backgrounds” updates their music through the job queue, without re-encoding the video.
+
+## 5. Tracks
 
 “+ Add files” or “+ Add folder”, or drag audio into the list. For each track you can change the order, volume, start and the seam with the next one.
 
