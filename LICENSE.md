@@ -2,7 +2,7 @@ English · [Čeština](#licenční-smlouva-menumancer) · [Русский](#ли
 
 # Menumancer License Agreement
 
-Version 1.1, 17 October 2026
+Version 1.2, 13 November 2026
 
 This License Agreement ("Agreement") is between you and the author of Menumancer, who publishes under the name Laraden ("the Author"). It covers the Menumancer app, its updates and its documentation ("the App"). Please read it before you use the App. By selecting "I accept", or by installing or using the App, you agree to this Agreement. If you do not agree, do not use the App.
 
@@ -60,7 +60,7 @@ Menumancer is not affiliated with Wallpaper Engine or its developers. The App ca
 
 The App has no accounts or ads, and it does not collect analytics or telemetry. It connects to the internet only to:
 
-- check GitHub for updates (you can turn this off in "About") and download the updates you choose to install;
+- check GitHub for updates (you can turn this off in "Settings" → "Updates") and download the updates you choose to install;
 - download optional AI models from their publishers when you first use a feature that needs them;
 - open a web page in your browser when you click a link.
 
@@ -108,7 +108,7 @@ Questions, requests for permission and bug reports: https://github.com/Laraden/m
 
 # Licenční smlouva Menumancer
 
-Verze 1.1, 17. října 2026
+Verze 1.2, 13. listopadu 2026
 
 Tato licenční smlouva („Smlouva“) se uzavírá mezi vámi a autorem aplikace Menumancer, který ji vydává pod jménem Laraden („Autor“). Vztahuje se na aplikaci Menumancer, její aktualizace a dokumentaci („Aplikace“). Před použitím Aplikace si ji prosím přečtěte. Volbou „Přijímám“ nebo instalací či používáním Aplikace s touto Smlouvou souhlasíte. Pokud nesouhlasíte, Aplikaci nepoužívejte.
 
@@ -166,7 +166,7 @@ Menumancer není přidružen k aplikaci Wallpaper Engine ani k jejím vývojář
 
 Aplikace nemá účty ani reklamy a neshromažďuje analytická ani telemetrická data. K internetu se připojuje jen proto, aby:
 
-- zkontrolovala aktualizace na GitHubu (lze vypnout v části „O aplikaci“) a stáhla aktualizace, které se rozhodnete nainstalovat;
+- zkontrolovala aktualizace na GitHubu (lze vypnout v „Nastavení“ → „Aktualizace“) a stáhla aktualizace, které se rozhodnete nainstalovat;
 - stáhla volitelné modely umělé inteligence od jejich vydavatelů, když poprvé použijete funkci, která je potřebuje;
 - otevřela webovou stránku ve vašem prohlížeči, když kliknete na odkaz.
 
@@ -214,7 +214,7 @@ Dotazy, žádosti o svolení a hlášení chyb: https://github.com/Laraden/menum
 
 # Лицензионное соглашение Menumancer
 
-Версия 1.1, 17 октября 2026 г.
+Версия 1.2, 13 ноября 2026 г.
 
 Это лицензионное соглашение («Соглашение») заключается между вами и автором программы Menumancer, который выпускает её под именем Laraden («Автор»). Оно распространяется на программу Menumancer, её обновления и документацию («Программа»). Пожалуйста, прочитайте его, прежде чем пользоваться Программой. Нажимая «Принимаю», устанавливая или используя Программу, вы соглашаетесь с этим Соглашением. Если вы не согласны, не используйте Программу.
 
@@ -272,7 +272,7 @@ Menumancer не связан с Wallpaper Engine и его разработчи�
 
 В Программе нет учётных записей и рекламы, она не собирает аналитику и телеметрию. Программа выходит в интернет, только чтобы:
 
-- проверить обновления на GitHub (это можно отключить в разделе «О программе») и скачать обновления, которые вы решили установить;
+- проверить обновления на GitHub (это можно отключить в «Настройках» → «Обновления») и скачать обновления, которые вы решили установить;
 - скачать необязательные модели ИИ у их издателей, когда вы впервые используете функцию, которой они нужны;
 - открыть веб-страницу в вашем браузере, когда вы нажимаете на ссылку.
 
