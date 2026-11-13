@@ -12,7 +12,7 @@ Pět scén, které aplikace kreslí celé sama: **Northern lights** (polární z
 2. Nalaďte ji posuvníky vpravo: barvy, jas, množství sněhu nebo uhlíků. **Obnovit** vrátí výchozí hodnoty.
 3. Klikněte na **Nainstalovat do Doty** nad náhledem.
 
-Aplikace vykreslí scénu do videa pro váš monitor, sestaví pozadí a nainstaluje ho. Průběh je vidět přímo na tlačítku a stránku můžete mezitím opustit. **▾** vedle tlačítka nastaví název pozadí a snímky za sekundu (30 je doporučeno, 60 pro výkonná PC). **Jen do knihovny** pozadí sestaví bez instalace.
+Aplikace vykreslí scénu do videa pro váš monitor, sestaví pozadí a nainstaluje ho. Průběh je vidět přímo na tlačítku a stránku můžete mezitím opustit. **▾** vedle tlačítka nastaví název pozadí a snímky za sekundu; snímky a kvalita (pod „Rozšířené“) jsou stejné jako v sekci „Vytvořit“ a vycházejí z Nastavení → Nová pozadí. **Jen do knihovny** pozadí sestaví bez instalace.
 
 ## Vlastní obrázek
 

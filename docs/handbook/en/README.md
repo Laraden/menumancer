@@ -8,7 +8,7 @@ Step-by-step guides for the things people do with Menumancer. New here? Start wi
 2. [Your first background](first-background.md): from a video to a seamless loop with music in the Dota menu.
 3. [Live scenes](live-scenes.md): northern lights, deep space, your own picture with depth, the scene editor.
 4. [Wallpaper Engine](wallpaper-engine.md): video wallpapers and scenes from your subscriptions, and whose they are.
-5. [Sharing with friends](sharing.md): presets, ZIP files and what you may pass on.
+5. [Sharing with friends](sharing.md): background files, ZIP files and what you may pass on.
 6. [Troubleshooting](troubleshooting.md): the background doesn't show, Dota was updated, the menu lags.
 7. [Safety and FAQ](faq.md): bans, what the app changes, antivirus warnings, privacy.
 

@@ -8,7 +8,7 @@ Návody krok za krokem k tomu, co lidé v Menumanceru dělají. Jste tu poprvé?
 2. [První pozadí](first-background.md): od videa k plynulé smyčce s hudbou v menu Doty.
 3. [Živé scény](live-scenes.md): polární záře, vesmír, vlastní obrázek s hloubkou, editor scén.
 4. [Wallpaper Engine](wallpaper-engine.md): video tapety a scény z vašich odběrů a komu patří.
-5. [Sdílení s přáteli](sharing.md): presety, ZIP a co smíte předávat.
+5. [Sdílení s přáteli](sharing.md): soubor pozadí, ZIP a co smíte předávat.
 6. [Řešení potíží](troubleshooting.md): pozadí není vidět, Dota se aktualizovala, menu se seká.
 7. [Bezpečnost a otázky](faq.md): bany, co aplikace mění, varování antiviru, data.
 

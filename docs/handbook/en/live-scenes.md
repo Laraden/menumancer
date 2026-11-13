@@ -12,7 +12,7 @@ Five scenes drawn entirely by the app: **Northern lights**, **Deep space**, **Sm
 2. Tune it with the sliders on the right: colours, brightness, the amount of snow or embers. **Reset** brings the defaults back.
 3. Click **Install into Dota** above the preview.
 
-The app renders the scene to a video for your monitor, builds the background and installs it. Progress shows on the button, and you can leave the page while it works. The **▾** next to the button sets the background name and the frame rate (30 is recommended, 60 is for strong PCs). **Library only** builds it without installing.
+The app renders the scene to a video for your monitor, builds the background and installs it. Progress shows on the button, and you can leave the page while it works. The **▾** next to the button sets the background name and the frame rate; frame rate and quality (under “Advanced”) are the same as in Create and start from Settings → New backgrounds. **Library only** builds it without installing.
 
 ## Your own picture
 

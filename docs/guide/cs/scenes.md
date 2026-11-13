@@ -30,7 +30,7 @@ Barvy, jas, množství sněhu nebo uhlíků: každá šablona má svá. Náhled 
 
 ## 7. Nainstalovat do Doty
 
-„Nainstalovat do Doty“ v liště nad náhledem vyrenderuje scénu do videa pro váš monitor, sestaví pozadí a nainstaluje ho do Doty; průběh je vidět přímo na tlačítku a stránku můžete opustit. ▾ vedle otevře název pozadí a snímky: 30 je optimální a doporučeno, 60 pro výkonná PC. Kvalita a „Jen do knihovny“ jsou pod „Rozšířené“.
+„Nainstalovat do Doty“ v liště nad náhledem vyrenderuje scénu do videa pro váš monitor, sestaví pozadí a nainstaluje ho do Doty; průběh je vidět přímo na tlačítku a stránku můžete opustit. ▾ vedle otevře název pozadí a snímky. Snímky a kvalita jsou stejné jako v sekci „Vytvořit“ a vycházejí z Nastavení → Nová pozadí; změny zde platí jen pro toto pozadí. Kvalita a „Jen do knihovny“ jsou pod „Rozšířené“.
 
 ## 8. Editor
 

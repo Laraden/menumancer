@@ -1,8 +1,8 @@
-# Menu customization
+# Dota menu
 
-Your own look for the Dota main menu. The basics are in view: the Play button color, the match search panel and the top bar. The rest (labels, profile, hero figures, pages) is under “More settings” marked beta: it already works but is still being polished. Only the look changes, through the mod file: nothing changes in a match, and the accept-match window, Dota Plus and shards are left alone.
+Your own design for the Dota main menu. The basics are in view: the Play button color, the match search panel and the top bar. The rest (labels, profile, hero figures, pages) is under “More settings” marked beta: it already works but is still being polished. Only the design changes, through the background file: nothing changes in a match, and the accept-match window, Dota Plus and shards are left alone.
 
-![Menu customization](images/menu.png)
+![Dota menu](images/menu.png)
 
 ## 1. Settings
 
@@ -22,7 +22,7 @@ Click a look to take all its colors at once. Your button labels stay as they are
 
 ## 5. Apply
 
-“Apply” saves the settings and rebuilds the installed background. Dota must be closed for this. “As in Dota” puts everything back.
+After a change, a bar with “Apply” and “Discard” appears here. “Apply” saves the settings and rebuilds the installed background; Dota must be closed for this. “Discard” goes back to the saved design, and “As in Dota” at the top puts everything back as in Dota.
 
 ---
 

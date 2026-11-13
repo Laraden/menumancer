@@ -1,8 +1,8 @@
-# Úprava menu
+# Menu Doty
 
-Vlastní vzhled hlavního menu Doty. Na očích je základ: barva tlačítka „Hrát“, panel hledání hry a horní lišta. Zbytek (nápisy, profil, figurky hrdinů, stránky) je v části „Další nastavení“ s označením beta: už funguje, ale ještě ho dolaďujeme. Mění se jen vzhled přes soubor modu: v zápase se nic nemění a okno přijetí hry, Dota Plus ani střepy nijak neměníme.
+Vlastní úprava hlavního menu Doty. Na očích je základ: barva tlačítka „Hrát“, panel hledání hry a horní lišta. Zbytek (nápisy, profil, figurky hrdinů, stránky) je v části „Další nastavení“ s označením beta: už funguje, ale ještě ho dolaďujeme. Mění se jen úprava, přes soubor pozadí: v zápase se nic nemění a okno přijetí hry, Dota Plus ani střepy nijak neměníme.
 
-![Úprava menu](images/menu.png)
+![Menu Doty](images/menu.png)
 
 ## 1. Nastavení
 
@@ -22,7 +22,7 @@ Kliknutím na vzhled převezmete všechny jeho barvy najednou. Vaše nápisy na 
 
 ## 5. Použít
 
-„Použít“ uloží nastavení a znovu sestaví nainstalované pozadí. Dota přitom musí být zavřená. „Jako v Dotě“ vrátí vše, jak bylo.
+Po změně se tu objeví lišta s „Použít“ a „Zrušit“. „Použít“ uloží nastavení a znovu sestaví nainstalované pozadí; Dota přitom musí být zavřená. „Zrušit“ vrátí uložený vzhled a „Jako v Dotě“ nahoře vrátí vše jako v Dotě.
 
 ---
 

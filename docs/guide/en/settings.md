@@ -1,6 +1,6 @@
 # Settings
 
-Everything the build needs: where Dota is, FFmpeg, video quality and what the app does.
+Everything the build needs: where Dota is, FFmpeg, what every new background starts with, updates and clean Dota.
 
 ![Settings](images/settings.png)
 
@@ -12,17 +12,21 @@ Whether Dota is found, which voice language it uses and whether FFmpeg is there.
 
 The app finds the game folder on its own. If it doesn't, pick the dota 2 beta folder by hand.
 
-## 3. Video
+## 3. New backgrounds
 
-Resolution, frame rate, quality, crossfade length at the loop seam and the default menu look. New backgrounds use these settings.
+Every new background starts with these: quality, resolution, frame rate, crossfade length at the loop seam and what the menu shows. You can change all of it for one background in Create.
 
-## 4. Library and app
+## 4. Updates
 
-The app language and the folder where your backgrounds live.
+The app checks for updates on its own at every start and every hour while it is open, and installs them only when you click. Pre-release versions and the skipped version are under “Advanced”.
 
-## 5. Restore original
+## 5. Library and app
 
-“Remove all mod files” gives the game back its default background and music. The app never touches Valve's files.
+The app language, the folder where your backgrounds live and the glow in the background's colours at the top of every page.
+
+## 6. Clean Dota
+
+“Back to clean Dota” takes every Menumancer file out of the game: the menu and music are Valve's own again. It runs in the queue like a build, and the line above the button says what is in Dota now. The app never touches Valve's files.
 
 ---
 
