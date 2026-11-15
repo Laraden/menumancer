@@ -18,7 +18,7 @@ Tímto začíná každé nové pozadí: kvalita, rozlišení, snímková frekven
 
 ## 4. Aktualizace
 
-Aplikace sama kontroluje aktualizace při každém spuštění a každou hodinu, dokud je otevřená, a instaluje je jen po vašem kliknutí. Zkušební verze a přeskočená verze jsou v „Pokročilé“.
+Aplikace sama kontroluje aktualizace při každém spuštění a každou hodinu, dokud je otevřená, a instaluje je jen po vašem kliknutí. Každá aktualizace přichází všem, nic není třeba zapínat. Přeskočená verze je v „Pokročilé“.
 
 ## 5. Knihovna a aplikace
 

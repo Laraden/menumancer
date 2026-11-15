@@ -37,7 +37,7 @@ There's no telemetry or account. The app goes online for:
 
 ## How do updates work?
 
-The app checks GitHub for a new version and installs it only when you click **Update**. Every update is signed: the app verifies the signature and checksum before replacing anything. **Pre-release versions** in **Settings → Updates** offers versions that are still being tested.
+The app checks GitHub for a new version and installs it only when you click **Update**. Every update is signed: the app verifies the signature and checksum before replacing anything. Every update goes to everyone, with nothing to turn on, and the app file stays where you put it: its desktop icon keeps its place.
 
 ## Mac, Linux, Steam Deck?
 

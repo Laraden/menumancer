@@ -6,7 +6,7 @@ Version, updates, guides, reporting a problem, supporting development and the ch
 
 ## 1. Updates
 
-The app version and whether a new one is out. “Check now” asks GitHub, and an update is installed only when you click. Automatic checks and pre-release versions: “Update settings” takes you to Settings.
+The app version and whether a new one is out. “Check now” asks GitHub, and an update is installed only when you click. Automatic checks: “Update settings” takes you to Settings.
 
 ## 2. How to use
 

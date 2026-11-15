@@ -18,7 +18,7 @@ Every new background starts with these: quality, resolution, frame rate, crossfa
 
 ## 4. Updates
 
-The app checks for updates on its own at every start and every hour while it is open, and installs them only when you click. Pre-release versions and the skipped version are under “Advanced”.
+The app checks for updates on its own at every start and every hour while it is open, and installs them only when you click. Every update is offered to everyone, with nothing to turn on. The skipped version is under “Advanced”.
 
 ## 5. Library and app
 

@@ -6,7 +6,7 @@ Verze, aktualizace, návody, nahlášení problému, podpora vývoje a historie 
 
 ## 1. Aktualizace
 
-Verze aplikace a zda vyšla nová. „Zkontrolovat teď“ se zeptá GitHubu a aktualizace se instaluje jen po vašem kliknutí. Automatická kontrola a zkušební verze: „Nastavení aktualizací“ vede do Nastavení.
+Verze aplikace a zda vyšla nová. „Zkontrolovat teď“ se zeptá GitHubu a aktualizace se instaluje jen po vašem kliknutí. Automatická kontrola: „Nastavení aktualizací“ vede do Nastavení.
 
 ## 2. Jak používat
 

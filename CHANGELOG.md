@@ -6,6 +6,12 @@ Full notes for every version: [Releases](https://github.com/Laraden/menumancer/r
 
 <!-- Add each new version here and in CHANGELOG.ru.md. -->
 
+## 1.4.1
+
+Updates write the new version into the same file, so the app's desktop icon stays in place (from the next update on). The
+“Pre-release versions” switch is gone: every update reaches everyone. Ready video looks no longer smear the picture (less blur
+and grain), importing your own ZIP keeps one installed background, and recipes from Wallpaper Engine scenes can be imported.
+
 ## 1.4.0
 
 A new, calmer interface across the whole app: sections in two groups, calm colours, a page glow in the colours of the background in
