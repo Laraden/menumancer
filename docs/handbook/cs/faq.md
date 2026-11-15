@@ -37,7 +37,7 @@ Zdarma, bez reklam a bez placených funkcí. Kód je uzavřený, protože je to 
 
 ## Jak fungují aktualizace?
 
-Aplikace hledá novou verzi na GitHubu a nainstaluje ji jen po kliknutí na **Aktualizovat**. Každá aktualizace je podepsaná: aplikace ověří podpis a kontrolní součet, než cokoli nahradí. **Testovací verze** v **Nastavení → Aktualizace** nabízejí verze, které se ještě testují.
+Aplikace hledá novou verzi na GitHubu a nainstaluje ji jen po kliknutí na **Aktualizovat**. Každá aktualizace je podepsaná: aplikace ověří podpis a kontrolní součet, než cokoli nahradí. Každá aktualizace přichází všem, nic není třeba zapínat, a soubor aplikace zůstává tam, kam jste ho dali: jeho ikona na ploše se nepřesune.
 
 ## Mac, Linux, Steam Deck?
 
